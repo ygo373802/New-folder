@@ -1,15 +1,22 @@
 #include<iostream>
 #include<iomanip>
+#include<string>
 using namespace std;
 int main()
 {
-    cout << "Celsius | Fahrenheit" << endl;
-    cout << "--------+-----------" << endl;
-    int c = 0,f;
-    for(;c <= 100;c = c + 10)
+    string name,full_name = "";
+    getline(cin,name);
+    int grade,zhihe = 0,count = 0;
+    string g = "";
+    while(cin >> grade && grade != -1)
     {
-        f = c * 1.8 + 32;
-        cout << setw(7) << c << " |" << setw(11) << f << endl;
+      zhihe = zhihe + grade;
+      count++;
+      g = g + to_string(grade) + " ";
     }
+    int ave = zhihe / count;
+    cout << ave << endl;
+    cout << name << " " << g << "-1";
+
     return 0;
 }
