@@ -1,16 +1,17 @@
 #include<iostream>
 #include<iomanip>
+#include<cstdlib>
+#include<ctime>
 #include<string>
 using namespace std;
 int main()
 {
-    int h,w;
-    cin >> h >> w;
-    for(int a = 1;a <= w * h;a++)
+    int n;
+    cin >> n;
+    for(int a = 1;a <= n;a++)
     {
-        cout << "*";
-        if(a % w == 0)
-        cout << endl;
+    int h = rand() % 24,m = rand() % 60;
+    cout << h << " hour " << m << " minutes" << endl;
     }
     return 0;
 }
