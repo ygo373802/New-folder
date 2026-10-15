@@ -3,15 +3,20 @@
 #include<cstdlib>
 #include<ctime>
 #include<string>
+#include<random>
 using namespace std;
 int main()
 {
-    int n;
-    cin >> n;
-    for(int a = 1;a <= n;a++)
-    {
-    int h = rand() % 24,m = rand() % 60;
-    cout << h << " hour " << m << " minutes" << endl;
-    }
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<>distrib_h(0,14);
+
+    int h = distrib_h(gen);
+    if(0 <= h && h <= 9)
+    cout << "1";
+    else if(10 <= h && h <= 12)
+    cout << "2";
+    else
+    cout << "3";
     return 0;
 }
