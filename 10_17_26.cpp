@@ -4,18 +4,20 @@
 using namespace std;
 int main()
 {
-    int f1 = 1,f2 = 1,n,fn;
-    cin >> n;
-    fn = f1 + f2;
-    cout << f1 << " " << f2 << " " << fn;
-    for(int a = 0;a < n;++a)
+   int n;
+   cin >> n;
+    int a = 2;
+    while(a <= n)
     {
-        f1 = f2;
-        f2 = fn;
-        fn = f1 + f2;
-        cout << " " << fn;
-
+       if(n % a == 0)
+       {
+        n = n / a;
+        cout << a << endl;
+        continue;
+       }
+       ++a;
     }
+   
     
     return 0;
 }
