@@ -2,27 +2,23 @@
 #include<ctime>
 #include<cmath>
 #include<cstdlib>
+#include<iomanip>
 using namespace std;
 int main()
 {
-    srand(time(0));
-    int money = 0;
-    for(int m = 1;m <= 1000000;m++)
+    double s = 0,v = 100,t = 0.01,g = 9.81,s2 = 0;
+    do
     {
-    for(int n = 1;n <= 24;n++)
+    double vchu = v;
+    for(int a = 1;a <= 100;a++)
     {
-    int a1 = rand() % 6 + 1,a2 = rand() % 6 + 1;
-    if(a1 == 6 && a2 == 6)
-    {
-    money = money + 2;
-    break;
+        s = 0.01 * v + s;
+        v = v - 0.01 * g;
     }
+    s2 = vchu - 0.5 * g;
+    cout << setw(8) << s << " " << setw(8) << s2 << endl;
     }
-    money = money - 1;
-    }
-    cout << money;
-
-
+    while(s >= 0 && s2 >= 0);
     return 0;
 
     
