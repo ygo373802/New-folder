@@ -4,24 +4,21 @@
 using namespace std;
 int main()
 {
-   int n = 2,shuru;
-   cin >> shuru;
-   while(n <= shuru)
+   string a;
+   int dancishu = 0,sum = 0,jushu = 0,pingjun;
+   while(cin >> a)
    {
-   bool zhi = true;
-    int a = 2;
-    while(a < n)
+    dancishu++;
+    if(a.substr(a.length() - 1,1) == ".")
     {
-       if(n % a == 0)
-       {
-        zhi = false;
-        break;
-       }
-       ++a;
+        ++jushu;
+        sum = sum + dancishu;
+        dancishu = 0;
     }
-    if(zhi)
-    cout << n << endl;
-    ++n;
-}
+    
+
+   }
+   pingjun = sum / jushu;
+    cout << pingjun;
     return 0;
 }
