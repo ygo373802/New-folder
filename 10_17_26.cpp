@@ -5,20 +5,25 @@ using namespace std;
 int main()
 {
    string a;
-   int dancishu = 0,sum = 0,jushu = 0,pingjun;
-   while(cin >> a)
+   cin >> a;
+   char l;
+   int c = a.length();
+   bool buchong = true;
+   for(int b = 0;b < c;++b)
    {
-    dancishu++;
-    if(a.substr(a.length() - 1,1) == ".")
+    l = a[b];
+    l = tolower(l);
+    for(int d = 0;d < b;++d)
     {
-        ++jushu;
-        sum = sum + dancishu;
-        dancishu = 0;
+        if(tolower(a[d]) == l)
+        {
+            buchong = false;
+        }
     }
-    
+    if(buchong)
+    cout <<l;
+    buchong = true;
 
    }
-   pingjun = sum / jushu;
-    cout << pingjun;
     return 0;
 }
