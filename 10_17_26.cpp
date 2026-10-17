@@ -1,30 +1,22 @@
 #include<iostream>
+#include<cmath>
+#include<iomanip>
 using namespace std;
 int main()
 {
-    int a,b,c = 0,sum1 = 0,sum2 = 0;
-    long long  kahao;
-    cin >> kahao;
-    long long kahao1 = kahao / 10;
-    while(kahao > 0)
+    cout << "enter several numbers, enter e to stop" << endl;
+    double x,sum = 0,geshu = 0,sumsq = 0;
+    while(cin >> x)
     {
-        a = kahao % 10;
-        kahao = kahao / 10;
-        sum1 = sum1 + a;
+        sum = x + sum;
+        sumsq = pow(x,2) + sumsq;
+        ++geshu;
     }
-    while(kahao1 > 0)
-    {
-        b = kahao1 % 10;
-        if(b > 4)
-        ++c;
-        kahao1 = kahao1 / 100;
-        sum2 = sum2 + b;
-    }
-    int zong = sum1 + sum2 + c;
-    if(zong % 10 == 0)
-    cout << "valid";
-    else
-    cout << "not valid";
+    double av = sum / geshu;
+    double s = sqrt(((sumsq - (pow(sum,2)) / geshu)) / (geshu - 1));
+    cout << fixed << setprecision(4) << sum << " " << av << " " << s;
+
+
     return 0;
 
 
