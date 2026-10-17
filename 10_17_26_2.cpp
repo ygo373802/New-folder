@@ -6,20 +6,33 @@ using namespace std;
 int main()
 {
     srand(time(0));
-    int x = 0,y = 0;
-    
-    for(int n = 1;n <= 100;++n)
+    int zhong1 = 0,zhong2 = 0,dui = 0;
+    for(int a = 1;a <= 1000;a++)
     {
-    int a = rand() % 2;
-    int c = rand() % 2 + 1;
-    int b = pow((-1),c);
-    if(a == 0)
-    x = x + b;
-    else
-    y = y + b;
+    int jiang = rand() % 3;
+    int pick = rand() % 3;
+    int goat;
+    do
+    {
+        goat = rand() % 3;
     }
-    int l = sqrt(pow(x,2) + pow(y,2));
-    cout << "(" << x << "," << y << ")" << " " << l;
+    while(goat == pick || goat == jiang);
+    if(pick == jiang )
+    zhong2++;
+
+        int n = pick;
+        do
+        {
+            pick = rand() % 3;
+        }
+        while(pick == n || pick == goat);
+        if(pick == jiang)
+        zhong1++;
+        
+    }
+    double c1 = zhong1 / 1000.0,c2 = zhong2 / 1000.0;
+    cout << c1 << " " << c2;
+    
     return 0;
 
     
