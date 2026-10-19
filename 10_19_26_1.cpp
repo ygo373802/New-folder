@@ -1,16 +1,30 @@
 #include<iostream>
 #include<cmath>
+#include<cstdlib>
+#include<ctime>
+#include<string>
 using namespace std;
-double volm (double l,double h)
+string r (string s)
 {
-    double V = pow(l,2) * h / 3;
-    return V;
+    int a = rand() % s.length();
+    string o = s.substr(a,1);
+    return o;
 }
 int main()
 {
-    double l,h;
-    cin >> l >> h;
-    double v = volm(l,h);
-    cout << v;
+    int n;
+    cin >> n;
+    int b = rand() % n;
+    for(int a = 0;a < b;a++)
+    {
+        string shu = r("abcdefghijklmnopqrstuvwxyz");
+        cout << shu;
+    }
+    cout << r("!@#$%&*^");
+    for(int a = b + 1;a < n;a++)
+    {
+         string shu = r("abcdefghijklmnopqrstuvwxyz");
+        cout << shu;
+    }
     return 0;
 }
