@@ -4,22 +4,19 @@
 #include<ctime>
 #include<string>
 using namespace std;
-void p(int a)
+int sum(int a)
 {
-    if(a < 1)
-    {
-        return;
-    }
-    p(a - 1);
-    for(int i = 0;i < a;i++)
-    {
-        cout << "*";
-    }
-    cout << endl;
+    int he = 0;
+    if(a < 10)
+    return a;
+    he = a % 10 + sum(a / 10);
+    return he;
 }
 int main()
 {
     int a;
     cin >> a;
-    p(a);
+    int b = sum(a);
+    cout << b;
+    return 0;
 }
