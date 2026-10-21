@@ -1,16 +1,19 @@
 #include <iostream>
 #include <algorithm>
 using namespace std;
-double s(const double& a,const double& b,const double& c)
+bool allsame(const double& a,const double& b,const double& c)
 {
-    double jie = (a + b + c) / 3;
-    return jie;
+    return (a == b && b == c) ? true:false;
 }
 int main()
 {
     double a,b,c;
     cin >> a >> b >> c;
-    double xiao = s(a,b,c);
-    cout << xiao;
+    bool same = allsame(a,b,c);
+    if(same)
+    cout << "same";
+    else
+    cout << "not the same";
     return 0;
+
 }
