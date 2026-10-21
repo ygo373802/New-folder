@@ -3,23 +3,31 @@
 #include <cmath>
 #include <string>
 using namespace std;
-string m(string str)
+bool v(char l)
 {
-    int a = str.length();
-    string middle;
-    if(a % 2 == 1)
+    bool v = false;
+    l = tolower(l);
+    if(l == 'a' || l == 'e' || l == 'i' || l == 'o' || l == 'u' )
+    v = true;
+    return v;
+}
+int count(string str)
+{
+    int c = 0;
+    for(int a = 0;a < str.length();a++)
     {
-        middle = str.substr(a / 2,1);
+        char l = str[a];
+        bool is_v = v(l);
+        if(is_v)
+        ++c;
     }
-    else
-    middle = str.substr(a / 2 - 1,2);
-    return middle;
+    return c;
 }
 int main()
 {
     string a;
     cin >> a;
-    string b = m(a);
-    cout << b;
+    int n = count(a);
+    cout << n;
     return 0;
 }
