@@ -3,29 +3,20 @@
 #include <cmath>
 #include <string>
 using namespace std;
-int count(string str)
+void jiao(int& a,int& b)
 {
-    if(str != "")
-    {
-    int a = 0;
-    string qian = " ";
-    for(int n = 0;n < str.length();n++)
-    {
-        string l = str.substr(n,1);
-        if(l != " " && qian == " ")
-        ++a;
-        qian = l;
-    }
-    return a;
-    }
-    else
-    return 0;
+   int m = a;
+   if(a < b)
+   {
+    a = b;
+    b = m;
+   }
 }
 int main()
 {
-    string a;
-    getline(cin,a);
-    int b = count(a);
-    cout << b;
+    int a,b;
+    cin >> a >> b;
+    jiao(a,b);
+    cout << a << " " << b;
     return 0;
 }
