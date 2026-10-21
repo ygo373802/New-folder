@@ -3,31 +3,29 @@
 #include <cmath>
 #include <string>
 using namespace std;
-bool v(char l)
-{
-    bool v = false;
-    l = tolower(l);
-    if(l == 'a' || l == 'e' || l == 'i' || l == 'o' || l == 'u' )
-    v = true;
-    return v;
-}
 int count(string str)
 {
-    int c = 0;
-    for(int a = 0;a < str.length();a++)
+    if(str != "")
     {
-        char l = str[a];
-        bool is_v = v(l);
-        if(is_v)
-        ++c;
+    int a = 0;
+    string qian = " ";
+    for(int n = 0;n < str.length();n++)
+    {
+        string l = str.substr(n,1);
+        if(l != " " && qian == " ")
+        ++a;
+        qian = l;
     }
-    return c;
+    return a;
+    }
+    else
+    return 0;
 }
 int main()
 {
     string a;
-    cin >> a;
-    int n = count(a);
-    cout << n;
+    getline(cin,a);
+    int b = count(a);
+    cout << b;
     return 0;
 }
