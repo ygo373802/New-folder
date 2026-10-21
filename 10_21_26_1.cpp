@@ -1,37 +1,25 @@
 #include <iostream>
 #include <algorithm>
 #include <cmath>
+#include <string>
 using namespace std;
-int digit(int a)
+string m(string str)
 {
-    int n = 0;
-    if(a == 0)
-    n = 1;
-    else{
-    a = abs(a);
-    while(a > 0)
+    int a = str.length();
+    string middle;
+    if(a % 2 == 1)
     {
-        a = a / 10;
-        n++;
+        middle = str.substr(a / 2,1);
     }
-    }
-    return n;
-}
-int first(int a)
-{
-    int n = digit(a);
-    int f = a / pow(10,(n - 1));
-    return f;
-}
-int last(int a)
-{
-    return (a % 10);
+    else
+    middle = str.substr(a / 2 - 1,2);
+    return middle;
 }
 int main()
 {
-    int a;
+    string a;
     cin >> a;
-    int d = digit(a),f = first(a),l = last(a);
-    cout << d << " " << f << " " << l;
+    string b = m(a);
+    cout << b;
     return 0;
 }
