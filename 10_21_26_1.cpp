@@ -1,19 +1,37 @@
 #include <iostream>
 #include <algorithm>
+#include <cmath>
 using namespace std;
-bool allsame(const double& a,const double& b,const double& c)
+int digit(int a)
 {
-    return (a == b && b == c) ? true:false;
+    int n = 0;
+    if(a == 0)
+    n = 1;
+    else{
+    a = abs(a);
+    while(a > 0)
+    {
+        a = a / 10;
+        n++;
+    }
+    }
+    return n;
+}
+int first(int a)
+{
+    int n = digit(a);
+    int f = a / pow(10,(n - 1));
+    return f;
+}
+int last(int a)
+{
+    return (a % 10);
 }
 int main()
 {
-    double a,b,c;
-    cin >> a >> b >> c;
-    bool same = allsame(a,b,c);
-    if(same)
-    cout << "same";
-    else
-    cout << "not the same";
+    int a;
+    cin >> a;
+    int d = digit(a),f = first(a),l = last(a);
+    cout << d << " " << f << " " << l;
     return 0;
-
 }
