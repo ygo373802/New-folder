@@ -1,31 +1,23 @@
 #include<iostream>
 #include<string>
+#include<cmath>
 using namespace std;
-bool con(const string& str,const string& zhao)
+int digit(const int& n)
 {
-    int chang = zhao.length();
-    string s = str;
-    if(s.length() >= chang)
-    {
-    if(s.substr(0,chang) == zhao)
-    return true;
+    int m = abs(n),wei = 1;
+    if(m < 10)
+    return wei;
     else
     {
-        s = s.substr(1);
-        return con(s,zhao);
+        m = m / 10;
+        return 1 + digit(m);
     }
-}
-else
-return false;
 }
 int main()
 {
-    string a,b;
-    cin >> a >> b;
-    bool dui = con(a,b);
-    if(dui)
-    cout << "yes";
-    else
-    cout << "no";
+    int a;
+    cin >> a;
+    int b = digit(a);
+    cout << b;
     return 0;
 }
