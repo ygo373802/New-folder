@@ -3,29 +3,61 @@
 #include<cstdlib>
 #include<algorithm>
 using namespace std;
-string reverse(const string& str)
+int bi(string& a,string& b)
 {
-    if(str.length() < 4)
-    return str;
-    string shou = str.substr(0,1),wei = str.substr(str.length()-1),zhong = str.substr(1,str.length()-2);
-    int a,b;
-    do
+    int da = 1;
+    auto m = a.find("."),n = b.find(".");
+    int shu1,shu2;
+    if(m == string::npos)
     {
-    a = rand() % (zhong.length());
-    b = rand() % (zhong.length());
+        shu1 = stoi(a);
+        a = "";
     }
-    while(a == b);
-    swap(zhong[a],zhong[b]);
-    return shou + zhong + wei;
+    else
+    {
+        shu1 = stoi(a.substr(0,m));
+        a = a.substr(m + 1);
+    }
+    if(n == string::npos)
+    {
+        shu2 = stoi(b);
+        b = "";
+    }
+    else
+    {
+        shu2 = stoi(b.substr(0,n));
+        b = b.substr(n + 1);
+    }
+    if(shu1 < shu2)
+    da = -1;
+    if(shu1 == shu2)
+    da = 0;
+    return da;
 }
 int main()
 {
-    string a;
-    while(cin >> a)
+    string a,b;
+    cin >> a >> b;
+    int m;
+    do
     {
-    string b = reverse(a);
-    cout << b << " ";
+        if(a == "" && b != "")
+        {
+           m = -1;
+           break;
+        }
+        if(b == "" && a != "")
+        {
+           m = 1;
+           break;
+        }
+        if(a == "" && b == "")
+        {
+           m = 0;
+           break;
+        }
+        m = bi(a,b);
     }
-    return 0;
-
+    while(m == 0);
+    cout << m;
 }
