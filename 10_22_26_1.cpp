@@ -1,31 +1,33 @@
-#include <iostream>
+#include<iostream>
 #include<string>
+#include<cstdlib>
+#include<algorithm>
 using namespace std;
-
-string mini(const string& s)
+string reverse(const string& str)
 {
-    if(s.length() < 1)
-    return "";
-    string min = s.substr(0,1);
-    int a = 0;
-    int b = 0;
-    for(;a < s.length();a++)
+    if(str.length() < 4)
+    return str;
+    string shou = str.substr(0,1),wei = str.substr(str.length()-1),zhong = str.substr(1,str.length()-2);
+    int a,b;
+    do
     {
-        string l = s.substr(a,1);
-        if(l < min)
-        {
-        min = l;
-        b = a;
-        }
+    a = rand() % (zhong.length());
+    b = rand() % (zhong.length());
     }
-    string xin = s.substr(0,b) + s.substr(b + 1);
-    return (min + mini(xin));
+    while(a == b);
+    int xiao = min(a,b);
+    int da = max(a,b);
+    string zuihou = zhong.substr(0,xiao) + zhong.substr(da,1) + zhong.substr(xiao + 1,da - xiao - 1) + zhong.substr(xiao,1) + zhong.substr(da + 1);
+    return shou + zuihou + wei;
 }
 int main()
 {
     string a;
-    cin >> a;
-    string b = mini(a);
-    cout << b;
+    while(cin >> a)
+    {
+    string b = reverse(a);
+    cout << b << " ";
+    }
     return 0;
+
 }
