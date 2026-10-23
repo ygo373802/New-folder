@@ -15,10 +15,8 @@ string reverse(const string& str)
     b = rand() % (zhong.length());
     }
     while(a == b);
-    int xiao = min(a,b);
-    int da = max(a,b);
-    string zuihou = zhong.substr(0,xiao) + zhong.substr(da,1) + zhong.substr(xiao + 1,da - xiao - 1) + zhong.substr(xiao,1) + zhong.substr(da + 1);
-    return shou + zuihou + wei;
+    swap(zhong[a],zhong[b]);
+    return shou + zhong + wei;
 }
 int main()
 {
