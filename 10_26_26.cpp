@@ -3,17 +3,29 @@
 using namespace std;
 int main()
 {
-    int cishu,mian = 20;
-    cin >> cishu;
-    int ci[mian] = {0,0,0,0,0,0};
-    for(int a = 0;a < cishu;a++)
+    int size = 0,c = 0;
+    int v[1000];
+    while(true)
     {
-        int dian = rand() % mian + 1;
-        ci[dian - 1]++;
+        cin >> v[c];
+        if(cin.fail())
+        break;
+        size++;
+        c++;
     }
-    for(int a = 0;a < mian;a++)
+    int b[size / 2];
+    for(int a = 0;a < size / 2;a++)
     {
-        cout << a + 1 << " : " << ci[a] << endl;
+        b[a] = v[a];
+    }
+    for(int a = size / 2;a < size;a++)
+    {
+        v[a - size / 2] = v[a];
+         v[a] = b[a - size / 2];
+    }
+    for(int a = 0;a < size;a++)
+    {
+        cout << v[a] << ",";
     }
     return 0;
 }
