@@ -3,57 +3,17 @@
 using namespace std;
 int main()
 {
-    int ci,xiwang;
-    cin >> ci >> xiwang;
-    int values[ci];
-    for(int a = 0;a < ci;a++)
+    int cishu,mian = 20;
+    cin >> cishu;
+    int ci[mian] = {0,0,0,0,0,0};
+    for(int a = 0;a < cishu;a++)
     {
-        values[a] = rand() % 100;
+        int dian = rand() % mian + 1;
+        ci[dian - 1]++;
     }
-    int shou = 0,wei = ci,t = 0;
-    int bufen = ci / 2;
-    bool found = false;
-    for(int a = 0;a < ci;a++)
-    {   
-        int b = a + 1,p = a;
-        int s = values[a],tem;
-        for(;b < ci;b++)
-        {
-            if(values[b] < s)
-            {
-               p = b;
-               s = values[b];
-            }
-        }
-        tem = values[a];
-        values[a] = s;
-        values[p] = tem;
-    }
-    while(bufen != t)
+    for(int a = 0;a < mian;a++)
     {
-        if(values[bufen] < xiwang)
-        {
-           shou = bufen + 1;
-        }
-        else if(values[bufen] > xiwang)
-        {
-            wei = bufen;
-        }
-        else if(values[bufen] == xiwang)
-        {
-            found = true;
-            break;
-        }
-        t = bufen;
-        bufen = (shou + wei) / 2;
-    }
-    if(found)
-    cout << "find" << endl;
-    else
-    cout << "no" << endl;
-    for(int a = 0;a < ci;a++)
-    {
-        cout << values[a] << endl;
+        cout << a + 1 << " : " << ci[a] << endl;
     }
     return 0;
 }
