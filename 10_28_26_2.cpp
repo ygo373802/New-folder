@@ -2,22 +2,23 @@
 #include <vector>
 #include <cmath>
 #include <algorithm>
+#include <string>
+#include <set>
 using namespace std;
-vector<int> merge(vector<int> a,vector<int> b)
+int count(const vector<string>& str)
 {
-    a.insert(a.end(),b.begin(),b.end());
-    vector<int> c = a;
-    sort(c.begin(),c.end());
-    return c;
+    set<string> uni;
+    for(int n = 0;n < str.size();n++)
+    {
+        uni.insert(str[n]);
+    }
+    int number = uni.size();
+    return number;
 }
 int main()
 {
-    vector<int> a = {1,2,3,4,5,11,12};
-    vector<int> b = {6,7,8,9,10};
-    vector<int> c = merge(a,b);
-    for(int n : c)
-    {
-        cout << n << " ";
-    }
+    vector<string> a = {"a","a","a","b"};
+    int n = count(a);
+    cout << n;
     return 0;
 }
