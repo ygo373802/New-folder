@@ -1,47 +1,18 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-void tu(int nums[],int size)
+void append(vector<int>& a,const vector<int>& b)
 {
-    double max = nums[0];
-    for(int a = 0;a < size;a++)
-    {
-        if(max < nums[a])
-        max = nums[a];
-    }
-    double bizhi;
-    vector<int> kong;
-    for(int a = 0;a < size;a++)
-    {
-        int k = 20 - nums[a] / max * 20;
-        kong.push_back(k);
-    }
-    for(int a = 0;a < 20;a++)
-    {
-        for(int n = 0;n < size;n++)
-        {
-            if(kong[n] <= 0)
-            {
-                cout << "*";
-            }
-            else
-            cout << " ";
-            kong[n] = kong[n] - 1;
-        }
-        cout << endl;
-    }
-
+    a.insert(a.end(),b.begin(),b.end());
 }
 int main()
 {
-    int size,shu;
-    int nums[size];
-    cin >> size;
-    for(int a = 0;a < size;a++)
+    vector<int> a = {1,2,3,4,5};
+    vector<int> b = {6,7,8,9,10};
+    append(a,b);
+    for(int n : a)
     {
-        cin >> shu;
-        nums[a] = shu;
+        cout << n << " ";
     }
-    tu(nums,size);
     return 0;
 }
