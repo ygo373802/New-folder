@@ -5,18 +5,15 @@
 #include <string>
 #include <set>
 using namespace std;
-bool identify(const vector<vector<int>>& td)
+bool different(const vector<vector<int>>& a)
 {
-    if(td.size() == 0)
-    return true;
-    int a = td[0][0];
-    for(int n = 0;n < td.size();n++)
+    vector<int> oneline;
+    for(int n = 0;n < a.size();n++)
     {
-        for(int m = 0;m < td[n].size();m++)
-        {
-            if(td[n][m] != a)
-            return false;
-        }
+        oneline.insert(oneline.end(),a[n].begin(),a[n].end());
     }
+    set<int> buchong(oneline.begin(),oneline.end());
+    if(oneline.size() == buchong.size())
     return true;
+    return false;
 }
