@@ -3,33 +3,23 @@
 #include <climits>
 #include <algorithm>
 #include <cmath>
+#include <vector>
 using namespace std;
-int l(int a[],int len)
-{
-    for(int n = 0;n < len;n++)
-    {
-        for (int m = n + 1;m < len;m++)
-        {
-            if(a[n] == a[m])
-            {
-                for(int b = m;b < len - 1;b++)
-                {
-                    a[b] = a[b + 1];
-                }
-                len--;
-                m--;
-            }
-        }
-    }
-    return len;
-}
 int main()
 {
-    int a[] = {1,4,9,16,9,7,4,9,11};
-    int b = l(a,9);
-    for(int n = 0;n < b;n++)
+    vector<int> nums;
+    for(int a = 0;a < 20;a++)
     {
-        cout << a[n] << " ";
+        int b = rand() % 100;
+        nums.push_back(b);
+        cout << b << " ";
+    }
+    cout << endl;
+    sort(nums.begin(),nums.end());
+    for(int a : nums)
+    {
+        cout << a << " ";
     }
     return 0;
+
 }
