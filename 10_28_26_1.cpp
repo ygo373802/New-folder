@@ -3,24 +3,19 @@
 #include <climits>
 #include <algorithm>
 using namespace std;
-bool in(int a[],int len)
+void remove_min(int a[],int len)
 {
-    sort(a,a + len);
-    for(int n = 0;n < len - 1;n++)
+    int min = a[0],pos = 0;
+    for(int n = 1;n < len;n++)
     {
-       if(a[n] == a[n + 1])
-       return true;
+        if(min > a[n])
+        {
+        min = a[n];
+        pos = n;
+        }
     }
-    return false;
-    
-}
-int main()
-{
-    int a[] = {1,3,23,534,12,4352,5423};
-    bool inc = in(a,7);
-    if(inc)
-    cout << "increasing";
-    else
-    cout << "not";
-    return 0;
+    for(int b = pos;b < len;b++)
+    {
+        a[b] = a[b + 1];
+    }
 }
