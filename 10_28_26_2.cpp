@@ -5,28 +5,18 @@
 #include <string>
 #include <set>
 using namespace std;
-vector<int> location(const vector<vector<int>>& chart,const int& find)
+bool identify(const vector<vector<int>>& td)
 {
-    int n = 0,m = 0;
-    bool f = false;
-    for(;n < chart.size() && !f;n++)
+    if(td.size() == 0)
+    return true;
+    int a = td[0][0];
+    for(int n = 0;n < td.size();n++)
     {
-        for(;m < chart[n].size();m++)
+        for(int m = 0;m < td[n].size();m++)
         {
-           if(chart[n][m] == find)
-           {
-            f = true;
-           break;
-           }
+            if(td[n][m] != a)
+            return false;
         }
     }
-    vector<int> c;
-    if(f)
-    {
-    c = {m,n};
-    return c;
-    }
-    else
-    return c;
-
+    return true;
 }
