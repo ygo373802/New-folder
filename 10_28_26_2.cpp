@@ -5,7 +5,10 @@
 #include <string>
 #include <set>
 using namespace std;
-void swap(vector<vector<int>>& a,int row1,int row2)
+void s(vector<vector<int>>& a,int col1,int col2)
 {
-    swap(a[row1],a[row2]);
+    for(int n = 0;n < a.size();n++)
+    {
+        swap(a[n][col1],a[n][col2]);
+    }
 }
