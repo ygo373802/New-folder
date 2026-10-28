@@ -4,14 +4,15 @@
 using namespace std;
 bool in(int a[],int len)
 {
-    bool inc = false;
-    for(int n = 0;n < len - 1;n++)
+    for(int b = 0;b < len;b++)
     {
-        if(a[n] == a[n + 1])
-        inc = true;
-        return inc;
+        for(int c = b + 1;c < len;c++)
+        {
+            if(a[b] == a[c])
+            return true;
+        }
     }
-    return inc;
+    return false;
 }
 int main()
 {
