@@ -1,29 +1,26 @@
 #include <iostream>
 #include <cstdlib>
+#include <climits>
 using namespace std;
+int secl(int numbers[],int len)
+{
+    int l = INT_MIN,second = INT_MIN;
+    for(int a = 0;a < len;a++)
+    {
+        if(l < numbers[a])
+        {
+        second = l;
+        l = numbers[a];
+        }
+        if(l > numbers[a] && numbers[a] > second)
+        second = numbers[a];
+    }
+    return second;
+}
 int main()
 {
-    int numbers[10];
-    for(int a = 0;a < 10;a++)
-    {
-        numbers[a] = rand();
-    }
-    for(int a = 0;a < 10;a = a + 2)
-    {
-        cout << numbers[a] << " ";
-    }
-    cout << endl;
-    for(int a = 0;a < 10;++a)
-    {
-        if(numbers[a] % 2 == 0)
-        cout << numbers[a] << " ";
-    }
-    cout << endl;
-    for(int a = 0;a < 10;++a)
-    {
-        cout << numbers[9 - a] << " ";
-    }
-    cout << endl;
-    cout << numbers[0] << " " << numbers[9] << endl;
+    int a[] = {1,2,3,4,5,6,7,8,9,10,15,12};
+    int b = secl(a,12);
+    cout << b;
     return 0;
 }
