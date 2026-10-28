@@ -5,20 +5,28 @@
 #include <string>
 #include <set>
 using namespace std;
-int count(const vector<string>& str)
+vector<int> location(const vector<vector<int>>& chart,const int& find)
 {
-    set<string> uni;
-    for(int n = 0;n < str.size();n++)
+    int n = 0,m = 0;
+    bool f = false;
+    for(;n < chart.size() && !f;n++)
     {
-        uni.insert(str[n]);
+        for(;m < chart[n].size();m++)
+        {
+           if(chart[n][m] == find)
+           {
+            f = true;
+           break;
+           }
+        }
     }
-    int number = uni.size();
-    return number;
-}
-int main()
-{
-    vector<string> a = {"a","a","a","b"};
-    int n = count(a);
-    cout << n;
-    return 0;
+    vector<int> c;
+    if(f)
+    {
+    c = {m,n};
+    return c;
+    }
+    else
+    return c;
+
 }
