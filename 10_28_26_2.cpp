@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 void tu(int nums[],int size)
 {
@@ -9,16 +10,27 @@ void tu(int nums[],int size)
         max = nums[a];
     }
     double bizhi;
+    vector<int> kong;
     for(int a = 0;a < size;a++)
     {
-        bizhi = nums[a] / max;
-        int shu = bizhi * 40;
-        for(int b = 0;b < shu;b++)
+        int k = 20 - nums[a] / max * 20;
+        kong.push_back(k);
+    }
+    for(int a = 0;a < 20;a++)
+    {
+        for(int n = 0;n < size;n++)
         {
-            cout << "*";
+            if(kong[n] <= 0)
+            {
+                cout << "*";
+            }
+            else
+            cout << " ";
+            kong[n] = kong[n] - 1;
         }
         cout << endl;
     }
+
 }
 int main()
 {
