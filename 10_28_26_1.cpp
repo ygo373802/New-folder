@@ -1,18 +1,18 @@
 #include <iostream>
 #include <cstdlib>
 #include <climits>
+#include <algorithm>
 using namespace std;
 bool in(int a[],int len)
 {
-    for(int b = 0;b < len;b++)
+    sort(a,a + len);
+    for(int n = 0;n < len - 1;n++)
     {
-        for(int c = b + 1;c < len;c++)
-        {
-            if(a[b] == a[c])
-            return true;
-        }
+       if(a[n] == a[n + 1])
+       return true;
     }
     return false;
+    
 }
 int main()
 {
