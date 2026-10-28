@@ -2,20 +2,14 @@
 #include <cstdlib>
 #include <climits>
 #include <algorithm>
+#include <cmath>
 using namespace std;
-void remove_min(int a[],int len)
+int sum(int a[],int len)
 {
-    int min = a[0],pos = 0;
-    for(int n = 1;n < len;n++)
+    int s = 0;
+    for(int n = 0;n < len;n++)
     {
-        if(min > a[n])
-        {
-        min = a[n];
-        pos = n;
-        }
+        s = s + pow(-1,n) * a[n];
     }
-    for(int b = pos;b < len;b++)
-    {
-        a[b] = a[b + 1];
-    }
+    return s;
 }
