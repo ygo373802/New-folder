@@ -8,19 +8,16 @@
 using namespace std;
 void remove(int a[],int& size)
 {
-    for(int n = 0;n < size;)
+    int slow = 0,fast = 0;
+    for(;fast < size;++fast)
     {
-        if(a[n] < 0)
+        if(a[fast] >= 0)
         {
-            for(int m = n;m < size;m++)
-            {
-                a[m] = a[m + 1];
-            }
-            --size;
+            a[slow] = a[fast];
+            slow++;
         }
-        else
-        ++n;
     }
+    size = slow;
 }
 int main()
 {
