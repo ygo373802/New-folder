@@ -5,29 +5,30 @@
 #include <cmath>
 #include <vector>
 using namespace std;
+void remove(int a[],int& size,int given)
+{
+    for(int n = 0;n < size;)
+    {
+        if(a[n] < given)
+        {
+            for(int m = n;m < size;m++)
+            {
+                a[m] = a[m + 1]; 
+            }
+            size--;
+        }
+        else
+        n++;
+    }
+}
 int main()
 {
-    int size;
-    cin >> size;
-    double root[size];
-    double num;
-    for(int n = 0;n < size;n++)
+    int a[10] = {1,2,3,4,5,6,7};
+    int size = 7,n = 4;
+    remove(a,size,n);
+    for(int m = 0;m < size;m++)
     {
-        cin >> num;
-        root[n] = num;
+        cout << a[m] << " ";
     }
-    vector<vector<double>> sqr;
-    for(int n = 0;n < size;n++)
-    {
-        vector<double> a = {root[n],pow(root[n],2)};
-        sqr.push_back(a);
-    } 
-    for(int n = 0;n < size;n++)
-    {
-        for(int m = 0;m < 2;m++)
-        {
-            cout << sqr[n][m] << " ";
-        }
-        cout << endl;
-    }
+    return 0;
 }
