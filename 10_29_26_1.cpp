@@ -6,7 +6,7 @@
 #include <vector>
 #include <iomanip>
 using namespace std;
-bool same(const vector<int>& a,const vector<int>& b)
+void rewrite(vector<int>& a)
 {
-    return a == b;
+    a.assign(a.size(),0);
 }
