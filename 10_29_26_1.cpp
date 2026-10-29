@@ -6,33 +6,30 @@
 #include <vector>
 #include <iomanip>
 using namespace std;
-double average(vector<double> grades)
+void remove(int a[],int& size)
 {
-    sort(grades.begin(),grades.end());
-    vector<double> g;
-    for(int n = 1;n < grades.size();n++)
+    for(int n = 0;n < size;)
     {
-        g.push_back(grades[n]);
+        if(a[n] < 0)
+        {
+            for(int m = n;m < size;m++)
+            {
+                a[m] = a[m + 1];
+            }
+            --size;
+        }
+        else
+        ++n;
     }
-    double sum = 0;
-    for(int n = 0;n < g.size();n++)
-    {
-        sum = sum + g[n];
-    }
-    double count = g.size();
-    double a = sum / count;
-    return a;
 }
 int main()
 {
-    vector<double> g;
-    double a;
-    while(cin >> a)
+    int a[100000] = {1,2,-3,4,-5,-6,3,0,-7};
+    int size = 9;
+    remove(a,size);
+    for(int n = 0;n < size;n++)
     {
-        g.push_back(a);
+        cout << a[n] << " ";
     }
-    double b = average(g);
-    cout << fixed << setprecision(2) << b;
     return 0;
-
 }
