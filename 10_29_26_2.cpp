@@ -16,10 +16,7 @@ int main()
             int c = ku.size();
             int d = rand() % c;
             suiji.push_back(ku[d]);
-            for(int e = d;e < c - 1;++e)
-            {
-                ku[e] = ku[e + 1];
-            }
+            ku[d] = ku[c - 1];
             ku.pop_back();
         }
         pailie.push_back(suiji);
