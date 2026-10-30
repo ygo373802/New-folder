@@ -6,37 +6,31 @@ using namespace std;
 int main()
 {
     srand(time(0));
-    vector<int> r;
-    int shu = 20;
-    for(int n = 0;n < shu;++n)
+    vector<vector<int>> pailie;
+    for(int a = 0;a < 10;++a)
     {
-        int m = rand() % 6 + 1;
-        r.push_back(m);
-    }
-    int left = 0,zuo = 0,you = 0,chang = 0,current;
-    while(left < shu)
-    {
-        int right = left;
-        for(;right < shu && r[left] == r[right];)
+        vector<int> ku = {1,2,3,4,5,6,7,8,9,10};
+        vector<int> suiji;
+        for(int b = 0;b < 10;++b)
         {
-            ++right;
+            int c = ku.size();
+            int d = rand() % c;
+            suiji.push_back(ku[d]);
+            for(int e = d;e < c - 1;++e)
+            {
+                ku[e] = ku[e + 1];
+            }
+            ku.pop_back();
         }
-        current = right - left + 1;
-        if(current > chang)
-        {
-            zuo = left;
-            you = right - 1;
-            chang = current;
-        }
-        left = right;
+        pailie.push_back(suiji);
     }
-    for(int n = 0;n < shu;n++)
+    for(int n = 0;n < 10;++n)
     {
-        if(n == zuo)
-        cout << "(";
-        cout << r[n] << " ";
-        if(n == you)
-        cout << ")";
+        for(int m = 0;m < 10;++m)
+        {
+            cout << pailie[n][m] << " ";
+        }
+        cout << endl;
     }
     return 0;
 }
