@@ -2,36 +2,46 @@
 #include <cstdlib>
 #include <ctime>
 #include <vector>
+#include <algorithm>
 using namespace std;
-int next(bool occpy[],int a)
-{
-    int n = 0,current = 0,chang = 0,left = 0,right = 0;
-    for(;n < a;++n)
-    {
-        if(!occpy[n])
-        {
-            current++;
-        }
-        if(occpy[n] || n == a - 1)
-        {
-        if(current > chang)
-        {
-            chang = current;
-            right = n + (occpy[n] ? -1 : 0);
-            left = right - current + 1;
-        }
-        current = 0;
-    }
-    }
-    int wei = (left + right) / 2;
-    return wei;
-}
 int main()
 {
-    bool f = false,t = true;
-    bool a[] = {f,f,f,f,t,f,f,f,f,f};
-    int b = 10;
-    int c = next(a,b);
-    cout << c;
+    srand(time(0));
+    int a = 45;
+    vector<int> paidui;
+    vector<int> coppy;
+    vector<int> jieju = {1,2,3,4,5,6,7,8,9};
+    while(a > 0)
+    {
+        int b = rand() % a + 1;
+        a = a - b;
+        paidui.push_back(b);
+    }
+    do
+    {
+        int zhang = 0;
+        vector<int>p;
+        for(int n = 0;n < paidui.size();++n)
+        {
+            paidui[n]--;
+            ++zhang;
+        }
+        for(int v = 0;v < paidui.size();v++)
+            {
+                if(paidui[v] > 0)
+                {
+                    p.push_back(paidui[v]);
+                }
+            }
+            paidui = p;
+    paidui.push_back(zhang);
+    coppy = paidui;
+    sort(coppy.begin(),coppy.end());
+    }
+    while(coppy != jieju);
+    for(int n = 0;n < paidui.size();++n)
+    {
+        cout << paidui[n] << " ";
+    }
     return 0;
 }
