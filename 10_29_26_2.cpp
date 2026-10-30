@@ -3,31 +3,35 @@
 #include <ctime>
 #include <vector>
 using namespace std;
+int next(bool occpy[],int a)
+{
+    int n = 0,current = 0,chang = 0,left = 0,right = 0;
+    for(;n < a;++n)
+    {
+        if(!occpy[n])
+        {
+            current++;
+        }
+        if(occpy[n] || n == a - 1)
+        {
+        if(current > chang)
+        {
+            chang = current;
+            right = n + (occpy[n] ? -1 : 0);
+            left = right - current + 1;
+        }
+        current = 0;
+    }
+    }
+    int wei = (left + right) / 2;
+    return wei;
+}
 int main()
 {
-    srand(time(0));
-    vector<vector<int>> pailie;
-    for(int a = 0;a < 10;++a)
-    {
-        vector<int> ku = {1,2,3,4,5,6,7,8,9,10};
-        vector<int> suiji;
-        for(int b = 0;b < 10;++b)
-        {
-            int c = ku.size();
-            int d = rand() % c;
-            suiji.push_back(ku[d]);
-            ku[d] = ku[c - 1];
-            ku.pop_back();
-        }
-        pailie.push_back(suiji);
-    }
-    for(int n = 0;n < 10;++n)
-    {
-        for(int m = 0;m < 10;++m)
-        {
-            cout << pailie[n][m] << " ";
-        }
-        cout << endl;
-    }
+    bool f = false,t = true;
+    bool a[] = {f,f,f,f,t,f,f,f,f,f};
+    int b = 10;
+    int c = next(a,b);
+    cout << c;
     return 0;
 }
