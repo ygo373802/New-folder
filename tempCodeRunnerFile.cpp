@@ -1,11 +1,17 @@
 #include <iostream>
 #include <vector>
-#include <string>
 using namespace std;
+bool same(const vector<int>& a,const vector<int>& b)
+{
+    return a == b;
+}
 int main()
 {
-    vector<vector<string>> biao;
-    int max = 20,col = 0;
-    double num;
-    vector<double> shu;
-    cout << "give me some numbers and I will print the chart for you(enter something is not number to stop inputting): ";
+    vector<int> a = {1,2,3,4};
+    vector<int> b = {1,2,3};
+    if(same(a,b))
+    cout << "they are the same";
+    else
+    cout << "they are different";
+    return 0;
+}
