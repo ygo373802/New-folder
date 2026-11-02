@@ -8,10 +8,16 @@ int main()
     int max = 20,col = 0;
     double num;
     vector<double> shu;
+    cout << "give me some numbers and I will print the chart for you(enter something is not number to stop inputting): ";
     while(cin >> num)
     {
         ++col;
         shu.push_back(num);
+    }
+    if(shu.size() == 0)
+    {
+        cout << "please give me some number";
+        return 1;
     }
     for(int n = 0;n < max;++n)
     {
@@ -27,6 +33,11 @@ int main()
     {
         if(shu[n] > da)
         da = shu[n];
+    }
+    if(da <= 0)
+    {
+        cout << "wrong number! You are supposed to enter positive numbers";
+        return 1;
     }
     for(int n = 0;n < col;++n)
     {
