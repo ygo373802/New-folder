@@ -3,48 +3,57 @@
 #include <vector>
 #include <cmath>
 #include <iomanip>
+#include <string>
 using namespace std;
+bool win(vector<vector<string>> a)
+{
+    for(vector<string> b : a)
+    {
+        if(b[0] == b[1] && b[1] == b[2] && b[0] != " ")
+        return true;
+    }
+    for(int n = 0;n < 3;++n)
+    {
+        if(a[0][n] == a[1][n] && a[1][n] == a[2][n] && a[0][n] != " ")
+        return true;
+    }
+    if(a[0][0] == a[1][1] && a[1][1] == a[2][2] && a[1][1] != " ")
+    return true;
+    if(a[0][2] == a[1][1] && a[1][1] == a[2][0] && a[1][1] != " ")
+    return true;
+    return false;
+}
 int main()
 {
-    int n,row,col;
-    cin >> n;
-    if(n % 2 == 0)
+    vector<vector<string>> qipan(3,vector<string>(3," "));
+    int lun = 1;
+    do
     {
-        cout << "please enter an odd number";
-        return 1;
-    }
-    row = n - 1;
-    col = n / 2;
-    vector<vector<int>> shudu(n,vector<int>(n,0));
-    for(int k = 1;k <= pow(n,2);++k)
-    {
-        if(shudu[row][col] != 0)
+        for(int n = 0;n < 3;++n)
         {
-            if(row == 0)
-            row = n - 1;
-            else
-            row--;
-            if(col == 0)
-            col = n - 1;
-            else
-            col--;
-            row--;
+            for(int m = 0;m < 3;++m)
+            {
+                cout << qipan[n][m];
+            }
+            cout << endl;
         }
-        shudu[row][col] = k;
-        row++;
-        col++;
-        if(row == n)
-        row = 0;
-        if(col == n)
-        col = 0;
-    }
-    for(int a = 0;a < n;a++)
-    {
-        for(int b = 0;b < n;b++)
+        int row,col;
+        cin >> row >> col;
+        while(row < 0 || row > 2 || col < 0 || col > 2)
         {
-            cout << setw(4) << shudu[a][b];
+            cout << "invalid input, enter again" << endl;
+            cin >> row >> col;
         }
-        cout << endl;
+        while(qipan[row][col] != " ")
+        {
+            cout << "occupied position!Enter again" << endl;
+            cin >> row >> col;
+        }
+        string fuhao = (lun % 2 == 1) ? "O" : "X";
+        qipan[row][col] = fuhao;
+        lun++;
     }
+    while(!win(qipan) && lun <= 9);
+    cout << "game over!";
     return 0;
 }
