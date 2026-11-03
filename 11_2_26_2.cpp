@@ -1,59 +1,50 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <cmath>
+#include <iomanip>
 using namespace std;
-bool shi(vector<vector<int>> a)
-{
-    vector<int> he;
-    vector<bool> seen(17,false);
-    for(vector<int> b : a)
-    {
-        int sum = 0;
-        for(int c : b)
-        {
-            if(c <= 0 || c > 16 || seen[c])
-            {
-                return false;
-            }
-                seen[c] = true;
-            
-            sum = sum + c;
-        }
-        he.push_back(sum);
-    }
-    for(int n = 0;n < 4;++n)
-    {
-        int sum = 0;
-        for(int m = 0;m < 4;++m)
-        {
-            sum = sum + a[m][n];
-        }
-        he.push_back(sum);
-    }
-    int dui1 = a[0][0] + a[1][1] + a[2][2] + a[3][3];
-    he.push_back(dui1);
-    int dui2 = a[0][3] + a[1][2] + a[2][1] + a[3][0];
-    he.push_back(dui2);
-    for(int n = 0;n < 9;n++)
-    {
-        if(he[n] != he[n + 1])
-        return false;
-    }
-    return true;
-}
 int main()
 {
-    vector<vector<int>> shudu;
-    for(int n = 0;n < 4;++n)
+    int n,row,col;
+    cin >> n;
+    if(n % 2 == 0)
     {
-        vector<int> row;
-        int num;
-        for(int m = 0;m < 4;++m)
-        {
-        cin >> num;
-        row.push_back(num);
-        }
-        shudu.push_back(row);
+        cout << "please enter an odd number";
+        return 1;
     }
-    
+    row = n - 1;
+    col = n / 2;
+    vector<vector<int>> shudu(n,vector<int>(n,0));
+    for(int k = 1;k <= pow(n,2);++k)
+    {
+        if(shudu[row][col] != 0)
+        {
+            if(row == 0)
+            row = n - 1;
+            else
+            row--;
+            if(col == 0)
+            col = n - 1;
+            else
+            col--;
+            row--;
+        }
+        shudu[row][col] = k;
+        row++;
+        col++;
+        if(row == n)
+        row = 0;
+        if(col == n)
+        col = 0;
+    }
+    for(int a = 0;a < n;a++)
+    {
+        for(int b = 0;b < n;b++)
+        {
+            cout << setw(4) << shudu[a][b];
+        }
+        cout << endl;
+    }
+    return 0;
 }
