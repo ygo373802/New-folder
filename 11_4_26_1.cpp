@@ -4,81 +4,76 @@
 #include <cstdlib>
 #include <ctime>
 using namespace std;
-vector<int> s(vector<int> left,vector<int> right)
+void S(vector<int> lefts,vector<int> rights,vector<string> leftn,vector<string> rightn,vector<int>& s,vector<string>& n)
 {
-    vector<int> jie;
-    while(left.size() > 0 && right.size() > 0)
+    while(lefts.size() > 0 && rights.size() > 0)
     {
-        if(left[0] < right[0])
+        if(lefts[0] < rights[0])
         {
-            jie.push_back(left[0]);
-            left.erase(left.begin());
+            s.push_back(lefts[0]);
+            lefts.erase(lefts.begin());
+            n.push_back(leftn[0]);
+            leftn.erase(leftn.begin());
         }
-        else if(left[0] >= right[0])
+        else if(lefts[0] >= rights[0])
         {
-            jie.push_back(right[0]);
-            right.erase(right.begin());
+            s.push_back(rights[0]);
+            rights.erase(rights.begin());
+            n.push_back(rightn[0]);
+            rightn.erase(rightn.begin());
         }
     }
-    if(left.size() > 0)
+    if(lefts.size() > 0)
     {
-        for(int n = 0;n < left.size();++n)
+        for(int n = 0;n < lefts.size();++n)
         {
-            jie.push_back(left[n]);
+            s.push_back(lefts[n]);
+        }
+        for(int m = 0;m < leftn.size();++m)
+        {
+            n.push_back(leftn[m]);
         }
     }
-    if(right.size() > 0)
+    if(rights.size() > 0)
     {
-        for(int n = 0;n < right.size();++n)
+        for(int n = 0;n < rights.size();++n)
         {
-            jie.push_back(right[n]);
+            s.push_back(rights[n]);
+        }
+        for(int m = 0;m < rightn.size();++m)
+        {
+            n.push_back(rightn[m]);
         }
     }
-    return jie;
 }
-vector<int> sor(vector<int> a)
+void sor(vector<int> s,vector<string> name,vector<int>& sala,vector<string>& N)
 {
-    if(a.size() <= 1)
+    if(s.size() <= 1)
     {
-       return a;
+        sala.push_back(s[0]);
+        N.push_back(name[0]);
+        return;
     }
-    vector<int> left;
-    vector<int> right;
-    int m = (a.size() - 1) / 2;
+    vector<int> lefts;
+    vector<int> rights;
+    vector<string> leftn;
+    vector<string> rightn;
+    vector<int> linshisl,linshisr;
+    vector<string> linshinl,linshinr;
+    int m = (s.size() - 1) / 2;
     for(int n = 0;n < m + 1;n++)
     {
-        left.push_back(a[n]);
+        lefts.push_back(s[n]);
+        leftn.push_back(name[n]);
     }
-    for(int n = m + 1;n < a.size();n++)
+    for(int n = m + 1;n < s.size();n++)
     {
-        right.push_back(a[n]);
+        rights.push_back(s[n]);
+        rightn.push_back(name[n]);
     }
-    return s(sor(left),sor(right));
-}
-vector<string> duiying(vector<int> a,vector<string> name)
-{
-    vector<int> hou = sor(a);
-    vector<int> pos;
-    for(int n = 0;n < a.size();n++)
-    {
-      int cha;
-      for(int m = 0;m < hou.size();m++)
-        {
-            if(a[n] == hou[m])
-            {
-                cha = m - n;
-                pos.push_back(cha);
-                hou[m] = -1;
-                break;
-            }
-        }
-    }
-    vector<string> jie(name.size());
-    for(int n = 0;n < pos.size();n++)
-    {
-        jie[n + pos[n]] = name[n];
-    }
-    return jie;
+    sor(lefts,leftn,linshisl,linshinl);
+    sor(rights,rightn,linshisr,linshinr);
+    S(linshisl,linshisr,linshinl,linshinr,sala,N);
 }
 int main()
 {
@@ -93,7 +88,9 @@ int main()
         name.push_back(m);
         salary.push_back(n);
     } 
-    vector<string> c = duiying(salary,name);
+    vector<int> sala;
+    vector<string> c;
+    sor(salary,name,sala,c);
     for(int a = 0;a < c.size();a++)
     {
         cout << c[a] << " ";
