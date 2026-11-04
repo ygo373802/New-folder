@@ -1,24 +1,53 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-int p(vector<int>& a,int l,int h)
+void d(double p[],bool is[],int num)
 {
-    int P = a[l];
-    int left = l - 1,right = h + 1;
-    while(true)
+    bool have = false;
+    int item = 0;
+    for(int n = 0;n < num;n++)
     {
-        do
-        {
-            left++;
-        }
-        while(a[left] < P);
-        do
-        {
-            right--;
-        }
-        while(a[right] > P);
-        if(left >= right)
-        return right;
-        swap(a[left],a[right]);
+       if(is[n])
+       have = true;
+       else
+       item++;
     }
+    if(have && item > 4)
+    {
+        double sum = 0;
+        for(int n = 0;n < num;n++)
+        {
+            if(!is[n])
+            sum = sum + p[n];
+        }
+        double dis = sum * 0.2;
+        cout << dis;
+        return;
+    }
+    else
+    cout << "no discount";
+
+}
+int main()
+{
+   double price[100000];
+   string jiancha;
+   double jiage;
+   int num = 0;
+   bool is[100000] = {false};
+   while(true)
+   {
+    cin >> jiage;
+    if(jiage == -1)
+    break;
+    cin >> jiancha;
+    if(jiancha == "Y")
+    {
+        is[num] = true;
+    }
+    price[num] = jiage;
+    num++;
+   }
+   d(price,is,num);
+
 }
