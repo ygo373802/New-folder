@@ -9,12 +9,12 @@ vector<int> s(vector<int> left,vector<int> right)
     vector<int> jie;
     while(left.size() > 0 && right.size() > 0)
     {
-        if(left[0] <= right[0])
+        if(left[0] < right[0])
         {
             jie.push_back(left[0]);
             left.erase(left.begin());
         }
-        else if(left[0] > right[0])
+        else if(left[0] >= right[0])
         {
             jie.push_back(right[0]);
             right.erase(right.begin());
@@ -55,12 +55,48 @@ vector<int> sor(vector<int> a)
     }
     return s(sor(left),sor(right));
 }
+vector<string> duiying(vector<int> a,vector<string> name)
+{
+    vector<int> hou = sor(a);
+    vector<int> pos;
+    for(int n = 0;n < a.size();n++)
+    {
+      int cha;
+      for(int m = 0;m < hou.size();m++)
+        {
+            if(a[n] == hou[m])
+            {
+                cha = m - n;
+                pos.push_back(cha);
+                hou[m] = -1;
+                break;
+            }
+        }
+    }
+    vector<string> jie(name.size());
+    for(int n = 0;n < pos.size();n++)
+    {
+        jie[n + pos[n]] = name[n];
+    }
+    return jie;
+}
 int main()
 {
-    vector<int> a = {1,3,5,7,2,4,6,8};
-    vector<int> b = sor(a);
-    for(int n = 0;n < b.size();n++)
+    vector<string> name;
+    vector<int> salary;
+    int n,number;
+    string m;
+    cin >> number;
+    for(int a = 0;a < number;a++)
     {
-        cout << b[n] << " ";
+        cin >> m >> n;
+        name.push_back(m);
+        salary.push_back(n);
+    } 
+    vector<string> c = duiying(salary,name);
+    for(int a = 0;a < c.size();a++)
+    {
+        cout << c[a] << " ";
     }
+    return 0;
 }
