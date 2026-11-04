@@ -2,27 +2,41 @@
 #include <vector>
 #include <string>
 #include <cfloat>
+#include <cstdlib>
+#include <ctime>
 using namespace std;
-void smooth(double sta[],int size)
+void flood(double dixing[10][10],double shuiwei)
 {
-    double smem = sta[0],fmem;
-    sta[0] = (sta[0] + sta[1]) / 2;
-    for(int n = 1;n < size - 1;++n)
+    for(int n = 0;n < 10;n++)
     {
-        fmem = sta[n];
-        sta[n] = (smem + sta[n] + sta[n + 1]) / 3;
-        smem = fmem;
-    }
-    sta[size - 1] = (sta[size - 1] + smem) / 2;
-    for(int n = 0;n < size;n++)
-    {
-        cout << sta[n] << " ";
+        for(int m = 0;m < 10;m++)
+        {
+            if(dixing[n][m] <= shuiwei)
+            {
+                cout << "*";
+            }
+            else
+            cout << " ";
+        }
+        cout << endl;
     }
 }
 int main()
 {
-    double a[] = {1,3,4,8,13,7,2};
-    int size = 7;
-    smooth(a,size);
-    return 0;
+    srand(time(0));
+    double di[10][10];
+    for(int n = 0;n < 10;n++)
+    {
+        for(int m = 0;m < 10;m++)
+        {
+            di[n][m] = rand() % 10;
+            cout << di[n][m] << " ";
+        }
+        cout << endl;
+    }
+    for(double n = 0;n < 10;n++)
+    {
+    flood(di,n);
+    cout << endl;
+    }
 }
