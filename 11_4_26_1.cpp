@@ -1,30 +1,42 @@
 #include <iostream>
 #include <string>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
 using namespace std;
-void sor(string a[],int size)
+void s(vector<int>& a)
 {
-    for(int n = 0;n < size;n++)
+    for(int n = 0;n < a.size();n++)
     {
         int min = INT_MAX,p;
-        for(int m = n;m < size;m++)
+        for(int m = n;m < a.size();m++)
         {
-            if(a[m].length() < min)
+            if(a[m] < min)
             {
-            min = a[m].length();
-            p = m;
-            }  
+                min = a[m];
+                p = m;
+            }
         }
-        swap(a[p],a[n]);
+        swap(a[n],a[p]);
     }
 }
 int main()
 {
-    string a[] = {"a","abc","ab","ac","aasd","adf"};
-    int size = 6;
-    sor(a,6);
-    for(int n = 0;n < size;n++)
+    srand(time(0));
+    vector<int> a;
+    for(int n = 0;n < 10;++n)
+    {
+        int m = rand() % 99 + 1;
+        a.push_back(m);
+    }
+    for(int n = 0;n < 10;n++)
     {
         cout << a[n] << " ";
     }
-    return 0;
+    cout << endl;
+    s(a);
+    for(int n = 0;n < 10;n++)
+    {
+        cout << a[n] << " ";
+    }
 }
