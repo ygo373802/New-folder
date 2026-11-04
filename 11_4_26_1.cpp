@@ -3,15 +3,18 @@
 using namespace std;
 void sor(string a[],int size)
 {
-    for(int n = 1;n < size;n++)
+    for(int n = 0;n < size;n++)
     {
-        for(int m = n;m > 0;m--)
+        int min = INT_MAX,p;
+        for(int m = n;m < size;m++)
         {
-            if(a[m].length() < a[m - 1].length())
+            if(a[m].length() < min)
             {
-                swap(a[m],a[m - 1]);
-            }
+            min = a[m].length();
+            p = m;
+            }  
         }
+        swap(a[p],a[n]);
     }
 }
 int main()
