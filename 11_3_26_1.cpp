@@ -3,28 +3,26 @@
 #include <string>
 #include <cfloat>
 using namespace std;
-void con(vector<double> pri,vector<string> name,int n)
+void smooth(double sta[],int size)
 {
-    vector<string> a;
-    vector<int> pos;
-    int p;
-    for(int m = 0;m < n;++m)
+    double smem = sta[0],fmem;
+    sta[0] = (sta[0] + sta[1]) / 2;
+    for(int n = 1;n < size - 1;++n)
     {
-        double da = 0;
-        for(int b = 0;b < pri.size();++b)
-        {
-           if(pri[b] > da)
-           {
-              p = b;
-              da = pri[b];
-           }
-        }
-        pos.push_back(p);
-        pri[p] = 0;
+        fmem = sta[n];
+        sta[n] = (smem + sta[n] + sta[n + 1]) / 3;
+        smem = fmem;
     }
-    for(int m : pos)
+    sta[size - 1] = (sta[size - 1] + smem) / 2;
+    for(int n = 0;n < size;n++)
     {
-        cout << name[m] << endl;
+        cout << sta[n] << " ";
     }
-
+}
+int main()
+{
+    double a[] = {1,3,4,8,13,7,2};
+    int size = 7;
+    smooth(a,size);
+    return 0;
 }
