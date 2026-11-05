@@ -2,17 +2,58 @@
 #include <iostream>
 #include <set>
 using namespace std;
-vector<int> remove(const vector<int>& a)
+vector<int> merge(const vector<int>& a,const vector<int>& b)
 {
-    set<int> b;
-    for(int n = 0;n < a.size();++n)
+    int left = 0,right = 0;
+    vector<int> jie;
+    while(left < a.size() && right < b.size())
     {
-        b.insert(a[n]);
+        if(a[left] <= b[right])
+        {
+            jie.push_back(a[left]);
+            left++;
+        }
+        else if(a[left] > b[right])
+        {
+            jie.push_back(b[right]);
+            right++;
+        }
     }
-    vector<int> c;
-    for(int n = 0;n < b.size();++n)
+    if(left < a.size())
     {
-        c.push_back(b(n));
+        for(int n = left;n < a.size();n++)
+        {
+            jie.push_back(a[n]);
+        }
     }
-    return b;
+    if(right < b.size())
+    {
+        for(int n = right;n < b.size();n++)
+        {
+            jie.push_back(b[n]);
+        }
+    }
+    return jie;
+}
+vector<int> mergesort(const vector<int>& a)
+{
+    if(a.size() <= 1)
+    {
+        return a;
+    }
+    int low = 0,high = a.size();
+    int mid = low + (high - low) / 2;
+    vector<int> left(a.begin(),a.begin() + mid);
+    vector<int> right(a.begin() + mid,a.end());
+    return merge(mergesort(left),mergesort(right));
+}
+int main()
+{
+    vector<int> a = {};
+    vector<int> b = mergesort(a);
+    for(int n = 0;n < b.size();n++)
+    {
+        cout << b[n] << " ";
+    }
+    return 0;
 }
