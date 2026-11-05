@@ -1,25 +1,13 @@
-#include <vector>
-using namespace std;
-bool find(const vector<int>& a,const int& target,int& pos)
+#include <cmath>
+void sort(int a[],int size)
 {
-    pos = a.size();
-    int low = 0,high = a.size() - 1;
-    while(low <= high)
+    int b[size],tl[size],tr[size];
+    int left = 0,right = 0;
+    while(left < changdu && right << changdu)
     {
-        int mid = low + (high - low) / 2;
-        if(a[mid] == target)
+        if(tl[left] <= tr[right])
         {
-            pos = mid;
-            return true;
-        }
-        else if(target < a[mid])
-        {
-            high = mid - 1;
-        }
-        else
-        {
-            low = mid + 1;
+            b
         }
     }
-    return false;
 }
