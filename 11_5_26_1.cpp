@@ -1,24 +1,20 @@
 #include <vector>
 #include <iostream>
-#include <set>
+#include <algorithm>
 using namespace std;
-vector<int> sort(const vector<int>& a)
+bool have(vector<int> a,int value)
 {
-    vector<int> tem(256,0);
-    for(int n = 0;n < a.size();++n)
+    sort(a.begin(),a.end());
+    int left = 0,right = a.size() - 1;
+    while(left < right)
     {
-        tem[a[n + 128]]++;
+        int sum = a[left] + a[right];
+        if(sum == value)
+        return true;
+        else if(sum < value)
+            left++;
+        else
+        right--;
     }
-    vector<int> fan;
-    for(int n = 0;n < tem.size();n++)
-    {
-        if(tem[n] > 0)
-        {
-            for(int m = 0;m < tem[n];m++)
-            {
-                fan.push_back(n - 128);
-            }
-        }
-    }
-    return fan;
+    return false;
 }
