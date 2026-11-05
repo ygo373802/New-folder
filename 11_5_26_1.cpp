@@ -2,58 +2,35 @@
 #include <iostream>
 #include <set>
 using namespace std;
-vector<int> merge(const vector<int>& a,const vector<int>& b)
+int search(const vector<int>& a,int target)
 {
-    int left = 0,right = 0;
-    vector<int> jie;
-    while(left < a.size() && right < b.size())
+    for(int n = 0;n < a.size();n++)
     {
-        if(a[left] <= b[right])
+        if(a[n] == target)
         {
-            jie.push_back(a[left]);
-            left++;
-        }
-        else if(a[left] > b[right])
-        {
-            jie.push_back(b[right]);
-            right++;
+            return n;
         }
     }
-    if(left < a.size())
-    {
-        for(int n = left;n < a.size();n++)
-        {
-            jie.push_back(a[n]);
-        }
-    }
-    if(right < b.size())
-    {
-        for(int n = right;n < b.size();n++)
-        {
-            jie.push_back(b[n]);
-        }
-    }
-    return jie;
+    return -1;
 }
-vector<int> mergesort(const vector<int>& a)
+int binarysearch(const vector<int>& a,int target)
 {
-    if(a.size() <= 1)
+    int low = 0,high = a.size() - 1;
+    while(low <= high)
     {
-        return a;
+        int mid = low + (high - low) / 2;
+        if(a[mid] == target)
+        {
+            return mid;
+        }
+        else if(a[mid] < target)
+        {
+            low = mid + 1;
+        }
+        else 
+        {
+            high = mid - 1;
+        }
     }
-    int low = 0,high = a.size();
-    int mid = low + (high - low) / 2;
-    vector<int> left(a.begin(),a.begin() + mid);
-    vector<int> right(a.begin() + mid,a.end());
-    return merge(mergesort(left),mergesort(right));
-}
-int main()
-{
-    vector<int> a = {};
-    vector<int> b = mergesort(a);
-    for(int n = 0;n < b.size();n++)
-    {
-        cout << b[n] << " ";
-    }
-    return 0;
+    return -1;
 }
