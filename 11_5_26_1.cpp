@@ -1,25 +1,18 @@
 #include <vector>
 #include <iostream>
+#include <set>
 using namespace std;
-int length(const vector<int>& a)
+vector<int> remove(const vector<int>& a)
 {
-    int slow = 0,fast = 0,Length,longest = 0;
-    while(fast < a.size())
+    set<int> b;
+    for(int n = 0;n < a.size();++n)
     {
-        while(fast < a.size() && a[fast] == a[slow])
-        {
-            fast++;
-        }
-        Length = fast - slow;
-        slow = fast;
-        if(longest < Length)
-        longest = Length;
+        b.insert(a[n]);
     }
-    return longest;
-}
-int main()
-{
-    vector<int> a = {1,2,3,4,3,3,4,4,4,5,5,5,3,3,3,3};
-    int b = length(a);
-    cout << b;
+    vector<int> c;
+    for(int n = 0;n < b.size();++n)
+    {
+        c.push_back(b(n));
+    }
+    return b;
 }
