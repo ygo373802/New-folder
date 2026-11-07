@@ -10,11 +10,11 @@ int med(int a,int b,int c)
     else
     return c;
 }
-int quick(vector<int>& a,int from,int to)
+void quick(vector<int>& a,int from,int to)
 {
     int s = to - from,pivot;
     if(s <= 1)
-    return from;
+    return;
     if(s <= 7)
     {
         pivot = a[(s) / 2 + from];
@@ -32,7 +32,7 @@ int quick(vector<int>& a,int from,int to)
         }
         pivot = med(med(v[1],v[0],v[2]),med(v[4],v[5],v[3]),med(v[6],v[7],v[8]));
     }
-    int left = from - 1,right = to;
+    int left = from - 1,right = to,p = from,q = to - 1;
     while(true)
     {
         do
@@ -48,21 +48,33 @@ int quick(vector<int>& a,int from,int to)
         if(left >= right)
         break;
         swap(a[left],a[right]);
+        if(a[left] == pivot)
+        {
+            swap(a[p],a[left]);
+            ++p;
+        }
+        if(a[right] == pivot)
+        {
+            swap(a[q],a[right]);
+            --q;
+        }  
     }
-    return right;
+    for(int n = from;n < p;++n)
+        {
+            swap(a[n],a[left - n + from - 1]);
+        }
+    for(int n = to - 1;n > q;n--)
+        {
+            swap(a[n],a[right + to - n]);
+        }
+    quick(a,from,from + left - p);
+    quick(a,to - q + right,to);
 }
-void sort(vector<int>& a,int from,int to)
-{
-    if(from >= to - 1)
-    return;
-    int b = quick(a,from,to);
-    sort(a,from,b);
-    sort(a,b + 1,to);
-}
+
 int main()
 {
-    vector<int> a = {2,4,6,8,1,3,5,7};
-    sort(a,0,a.size());
+    vector<int> a = {2,4,4,4,4,4,4,4,4,4,7,7,6,8,3,3,1,3,5,7};
+    quick(a,0,a.size());
     for(int n = 0;n < a.size();++n)
     {
         cout << a[n] << " ";
