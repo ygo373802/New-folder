@@ -1,58 +1,70 @@
 #include <vector>
 #include <iostream>
 using namespace std;
-int med(vector<int>& shu,const int& from,const int& to,const int& k)
+int med(int a,int b,int c)
 {
-    int pivot = shu[from];
-    int xiao = 0,deng = 0,da = 0;
-    vector<int> x,de,big;
-    for(int n = from;n < to;++n)
+    if((a <= b && b <= c) || (c <= b && b <= a))
+    return b;
+    else if((b <= a && a <= c) || (c <= a && a <= b))
+    return a;
+    else
+    return c;
+}
+int quick(vector<int>& a,int from,int to)
+{
+    int s = to - from,pivot;
+    if(s <= 1)
+    return from;
+    if(s <= 7)
     {
-        if(shu[n] < pivot)
-        {
-            ++xiao;
-            x.push_back(shu[n]);
-        }
-        else if(shu[n] > pivot)
-        {
-            ++da;
-            big.push_back(shu[n]);
-        }
-        else
-        {
-            deng++;
-            de.push_back(shu[n]);
-        }
+        pivot = a[(s) / 2 + from];
     }
-    int n1 = x.size(),n2 = de.size(),ind = from;
-    for(int n : x)
+    else if(s <= 40)
     {
-        shu[ind++] = n;
-    }
-    for(int n : de)
-    {
-        shu[ind++] = n;
-    }
-    for(int n : big)
-    {
-        shu[ind++] = n;
-    }
-    if(k < from + n1)
-    {
-        return med(shu,from,from + n1,k);
-    }
-    else if(k >= from + n1 + n2)
-    {
-        return med(shu,from + n1 + n2,to,k);
+        pivot = med(a[from],a[to - 1],a[from + s / 2]);
     }
     else
-    return pivot;    
+    {
+        vector<int> v;
+        for(int i = 0;i < 9;++i)
+        {
+            v.push_back(a[i * (s - 1) / 8 + from]);
+        }
+        pivot = med(med(v[1],v[0],v[2]),med(v[4],v[5],v[3]),med(v[6],v[7],v[8]));
+    }
+    int left = from - 1,right = to;
+    while(true)
+    {
+        do
+        {
+            ++left;
+        }
+        while(left < to - 1 && a[left] < pivot);
+        do
+        {
+            --right;
+        }
+        while(right > from && a[right] > pivot);
+        if(left >= right)
+        break;
+        swap(a[left],a[right]);
+    }
+    return right;
+}
+void sort(vector<int>& a,int from,int to)
+{
+    if(from >= to - 1)
+    return;
+    int b = quick(a,from,to);
+    sort(a,from,b);
+    sort(a,b + 1,to);
 }
 int main()
 {
-    vector<int> a = {1,2,3,4,5,6,7,8,9};
-    int from = 0,to = a.size(),k = from + (to - from) / 2;
-    int b = med(a,from,to,k);
-    cout << b;
-    return 0;
+    vector<int> a = {2,4,6,8,1,3,5,7};
+    sort(a,0,a.size());
+    for(int n = 0;n < a.size();++n)
+    {
+        cout << a[n] << " ";
+    }
 }
