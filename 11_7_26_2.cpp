@@ -3,6 +3,8 @@
 #include <iostream>
 #include <iomanip>
 #include <algorithm>
+#include <sstream>
+#include <cctype>
 using namespace std;
 vector<string> merge(vector<string> left,vector<string> right,vector<int> l,vector<int> r)
 {
@@ -59,17 +61,42 @@ vector<string> mergesort(vector<string> str,vector<int> num)
 void sor(vector<string>& a,int from,int to)
 {
     vector<int> nums;
-    for(int n = from;n <= to;n++)
+    vector<string> gaibian;
+    string s = "";
+    for(int n = from;n < to;++n)
     {
-        int m = a[n].find_first_of("123456789");
-        int nu = stoi(a[n].substr(m));
-        nums.push_back(nu);
+        for(int m = 0;m < a[n].length();++m)
+        {
+            if(isdigit(a[n][m]))
+            {
+                s += a[n][m];
+            }
+        }
+        if(!s.empty())
+        nums.push_back(stoi(s));
+        s = "";
+        gaibian.push_back(a[n]);
     }
-    vector<string> b = mergesort(a,nums);
-    for(int n = from;n <= to;n++)
+
+    vector<string> b = mergesort(gaibian,nums);
+    for(int n = from;n < to;n++)
     {
         a[n] = b[n - from];
     }
+}
+string peera(string str)
+{
+    string result = "";
+    for(char letter : str)
+    {
+        if(isalpha(letter))
+        {
+            result += letter;
+        }
+        else
+        break;
+    }
+    return result;
 }
 void paixu(vector<string>& a)
 {
@@ -77,7 +104,7 @@ void paixu(vector<string>& a)
     int slow = 0,fast = 0;
     while(fast < a.size())
     {
-        while(a[slow] == a[fast])
+        while(fast < a.size() && peera(a[slow]) == peera(a[fast]))
         {
             fast++;
         }
@@ -91,7 +118,7 @@ void paixu(vector<string>& a)
 }
 int main()
 {
-    vector<string> a = {"abd1","abd2","abc1"};
+    vector<string> a = {"abd12","abd2","abc1"};
     paixu(a);
     for(int n = 0;n < a.size();n++)
     {
