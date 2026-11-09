@@ -2,29 +2,20 @@
 #include <iostream>
 #include <string>
 #include <cctype>
+#include <sstream>
 using namespace std;
-bool havesame (string line)
+bool havesame (const string& line)
 {
-    string now = "",pre = "";
-    for(char c : line)
+    stringstream ss(line);
+    string now,pre = "";
+    while(ss >> now)
     {
-        if(isalpha(c))
+        if(now == pre)
         {
-            now += c;
+            return true;
         }
-        else
-        {
-            if(!now.empty())
-            {
-                if(now == pre)
-                return true;
-                pre = now;
-                now = "";
-            }
-        }
+        pre = now;
     }
-    if(now == pre && !now.empty())
-    return true;
     return false;
 }
 int main()
@@ -44,6 +35,7 @@ int main()
             cout << row << endl;
             cout << line;
         }
+        row++;
     }
     return 0;
 }
