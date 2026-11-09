@@ -3,39 +3,51 @@
 #include <string>
 #include <cctype>
 #include <sstream>
+#include <vector>
+#include <algorithm>
 using namespace std;
-bool havesame (const string& line)
+int num(const string& str)
 {
-    stringstream ss(line);
-    string now,pre = "";
-    while(ss >> now)
+    string r = "";
+    for(char l : str)
     {
-        if(now == pre)
+        if(isdigit(l))
         {
-            return true;
+            r += l;
         }
-        pre = now;
     }
-    return false;
+    int result = stoi(r);
+    return result;
+}
+string peera(const string& str)
+{
+    string result = "";
+    for(char letter : str)
+    {
+        if(isalpha(letter))
+        {
+            result += letter;
+        }
+    }
+    return result;
+}
+void paixu(vector<string>& a)
+{
+    stable_sort(a.begin(),a.end(),[](const string& s1,const string& s2)
+    {
+        string a1 = peera(s1),a2 = peera(s2);
+        if(a1 != a2)
+        return a1 < a2;
+        else
+        return num(s1) < num(s2);
+    });
 }
 int main()
 {
-    string filename;
-    cin >> filename;
-    ifstream ifile;
-    ifile.open(filename);
-    if(ifile.fail())
-    return 1;
-    string line;
-    int row = 1;
-    while(getline(ifile,line))
+    vector<string> a = {"abd12","abd2","abc1"};
+    paixu(a);
+    for(int n = 0;n < a.size();++n)
     {
-        if(havesame(line))
-        {
-            cout << row << endl;
-            cout << line;
-        }
-        row++;
+        cout << a[n] << " ";
     }
-    return 0;
 }
