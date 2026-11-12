@@ -3,27 +3,41 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <sstream>
 using namespace std;
+vector<int> nums(ifstream& in)
+{
+    int lines = 0,c = 0,w = 0;
+    string line;
+    while(getline(in,line))
+    {
+       ++lines;
+       stringstream ss(line);
+       string words;
+       while(ss >> words)
+       {
+        w++;
+        c += words.length();
+       }
+    }
+    vector<int> num = {lines,w,c};
+    return num;
+}
 int main()
 {
-    ifstream input("input.txt");
+    while(true)
+    {
+    string name;
+    cin >> name;
+    ifstream input(name);
     if(input.fail())
     return 1;
-    vector<string> lines;
-    string line;
-    while(getline(input,line))
+    vector<int> a = nums(input);
+    for(int n : a)
     {
-        lines.push_back(line);
+        cout << n << " ";
     }
     input.close();
-    ofstream output("output.txt");
-    if(output.fail())
-    return 1;
-    reverse(lines.begin(),lines.end());
-    for(string l : lines)
-    {
-        output << l << endl;
     }
-    output.close();
     return 0;
 }
