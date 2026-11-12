@@ -4,40 +4,54 @@
 #include <vector>
 #include <algorithm>
 #include <sstream>
+#include <cctype>
 using namespace std;
-vector<int> nums(ifstream& in)
-{
-    int lines = 0,c = 0,w = 0;
-    string line;
-    while(getline(in,line))
-    {
-       ++lines;
-       stringstream ss(line);
-       string words;
-       while(ss >> words)
-       {
-        w++;
-        c += words.length();
-       }
-    }
-    vector<int> num = {lines,w,c};
-    return num;
-}
 int main()
 {
-    while(true)
+    string iname = "",oname = "",line,c = "";
+    getline(cin,line);
+    int fast = 0;
+    while(line[fast] != ' ')
     {
-    string name;
-    cin >> name;
-    ifstream input(name);
-    if(input.fail())
-    return 1;
-    vector<int> a = nums(input);
-    for(int n : a)
-    {
-        cout << n << " ";
+        c += line[fast];
+        ++fast;
     }
-    input.close();
+    if(c == "copyfile")
+    {
+       fast++;
+       while(line[fast] != ' ')
+       {
+        iname += line[fast];
+        fast++;
+       }
+       fast++;
+       while(fast < line.size())
+       {
+        oname += line[fast];
+        fast++;
+       }
+    } 
+    else
+    {
+        cout << "wrong";
+        return 1;
+    } 
+    ifstream in(iname);
+    if(in.fail())
+    {
+        cerr << "invalid name";
+        return 1;
+    }
+    ofstream out(oname);
+    if(out.fail())
+    {
+        cerr << "invalid name";
+        return 1;
+    }
+    string li;
+    while(getline(in,li))
+    {
+        out << li << endl;
     }
     return 0;
 }
