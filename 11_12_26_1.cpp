@@ -4,21 +4,20 @@
 using namespace std;
 int main()
 {
-    string name;
-    cin >> name;
-    ifstream input(name);
+    ifstream input("input.txt");
     if(input.fail())
     return 1;
-    double leftnum,rightnum,leftsum = 0,rightsum = 0,leftcount = 0,rightcount = 0;
-    while(input >> leftnum)
+    ofstream output("output.txt");
+    string str;
+    while(getline(input,str))
     {
-        leftsum += leftnum;
-        leftcount++;
-        input >> rightnum;
-        rightsum += rightnum;
-        rightcount++;
+        for(int n = str.length() - 1;n >= 0;--n)
+        {
+            output << str[n];
+        }
+        output << endl;
     }
     input.close();
-    double lefta = leftsum / leftcount,righta = rightsum / rightcount;
+    output.close();
     return 0;
 }
