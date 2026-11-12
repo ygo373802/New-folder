@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 using namespace std;
 int main()
 {
@@ -18,9 +19,10 @@ int main()
     ofstream output("output.txt");
     if(output.fail())
     return 1;
-    for(int n = lines.size() - 1;n >= 0;n--)
+    reverse(lines.begin(),lines.end());
+    for(string l : lines)
     {
-        output << lines[n] << endl;
+        output << l << endl;
     }
     output.close();
     return 0;
