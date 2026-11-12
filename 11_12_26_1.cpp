@@ -9,13 +9,16 @@ int main()
     ifstream input(name);
     if(input.fail())
     return 1;
-    double num,sum = 0,count = 0;
-    while(input >> num)
+    double leftnum,rightnum,leftsum = 0,rightsum = 0,leftcount = 0,rightcount = 0;
+    while(input >> leftnum)
     {
-        sum += num;
-        count++;
+        leftsum += leftnum;
+        leftcount++;
+        input >> rightnum;
+        rightsum += rightnum;
+        rightcount++;
     }
-    cout << sum / count;
     input.close();
+    double lefta = leftsum / leftcount,righta = rightsum / rightcount;
     return 0;
 }
