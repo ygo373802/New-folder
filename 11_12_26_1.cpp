@@ -6,52 +6,18 @@
 #include <sstream>
 #include <cctype>
 using namespace std;
-int main()
+int main(int argc,char* argv[])
 {
-    string iname = "",oname = "",line,c = "";
-    getline(cin,line);
-    int fast = 0;
-    while(line[fast] != ' ')
-    {
-        c += line[fast];
-        ++fast;
-    }
-    if(c == "copyfile")
-    {
-       fast++;
-       while(line[fast] != ' ')
-       {
-        iname += line[fast];
-        fast++;
-       }
-       fast++;
-       while(fast < line.size())
-       {
-        oname += line[fast];
-        fast++;
-       }
-    } 
-    else
-    {
-        cout << "wrong";
-        return 1;
-    } 
-    ifstream in(iname);
-    if(in.fail())
-    {
-        cerr << "invalid name";
-        return 1;
-    }
-    ofstream out(oname);
+    ofstream out(argv[argc - 1],ios::binary);
     if(out.fail())
+    return 1;
+    for(int n = 1;n < argc - 1;++n)
     {
-        cerr << "invalid name";
+        ifstream in(argv[n],ios::binary);
+        if(in.fail())
         return 1;
-    }
-    string li;
-    while(getline(in,li))
-    {
-        out << li << endl;
+        out << in.rdbuf();
+        in.close();
     }
     return 0;
 }
