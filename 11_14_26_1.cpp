@@ -50,5 +50,6 @@ int main()
             wpop += pop;
         }
     }
+    cout << wpop;
     return 0;
 }
