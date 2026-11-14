@@ -6,67 +6,74 @@
 #include <sstream>
 #include <iomanip>
 using namespace std;
-string build(const char& ch)
+vector<string> ntw1(const string& st)
 {
-    char l = tolower(ch);
-    string zimubiao = "abcdefghijklmnopqrstuvwxyz";
-    int pos = l - 'a';
-    string result = zimubiao.substr(pos) + zimubiao.substr(0,pos);
+    string str = "|" + st;
+    vector<string> result;
+    string word;
+    int slow = 0,fast = 1;
+    while(fast < str.length())
+    {
+    while(fast < str.length() && str[fast] != '|')
+    {
+        ++fast;
+    }
+    if(fast >= str.length())
+    break;
+    word = str.substr(slow + 1,fast - slow - 1);
+    result.push_back(word);
+    slow = fast;
+    fast++;
+    }
+    result.push_back(str.substr(slow + 1));
     return result;
 }
-char transfer(const char& ch,const bool& jiami,const string& build)
+string ntw2(const string& str,const vector<string>& N)
 {
-    if(!isalpha(ch))
+    string result = "";
+    int slow = 0,fast = 0;
+    while(slow < str.length() && str[slow] != '|')
     {
-        return ch;
+        slow++;
     }
-    string zimubiao = "abcdefghijklmnopqrstuvwxyz";
-     if(jiami)
-     {
-        char l = tolower(ch);
-        int p = l - 'a';
-        return build[p];
-     }
-     else
-     {
-        char l = tolower(ch);
-        int p = (l - build[0] + 26) % 26;
-        return zimubiao[p];
-     }
+    result += str.substr(fast,slow - fast);
+    
+    while(slow < str.length())
+    {
+        fast = slow + 1;
+    while(fast < str.length() && str[fast] != '|')
+    {
+        fast++;
+    }
+    if(fast >= str.length())
+    {
+        result += str.substr(slow);
+        break;
+    }
+    int num = stoi(str.substr(slow + 1,fast - slow - 1));
+    result += N[num - 1];
+    slow = fast + 1;
+    while(slow < str.length() && str[slow] != '|')
+    {
+        slow++;
+    }
+    result += str.substr(fast + 1,slow - fast - 1);
+    }
+    return result;
 }
-int main(int argc,char* argv[])
+
+int main()
 {
-    string key = "",input = "",output = "";
-    bool jiami = true;
-    for(int i = 1;i < argc;i++)
+    string name1,name2,str,line1,line2;
+    cin >> name1 >> name2;
+    ifstream in1(name1);
+    getline(in1,line1);
+    vector<string> duizhao = ntw1(line1);
+    in1.close();
+    ifstream in2(name2);
+    while(getline(in2,line2))
     {
-        string arg = argv[i];
-        if(arg == "-d")
-            jiami = false;
-        else if(arg.substr(0,2) == "-k")
-        key = arg.substr(2);
-        else if(input.empty())
-        input = arg;
-        else
-        output = arg;
-    }
-    ifstream in(input);
-    ofstream out(output);
-    if(key.empty() || !in || !out)
-    {
-        cerr << "wrong information";
-        return 1;
-    }
-    char ch;
-    int count = 0,length = key.length();
-    while(in.get(ch))
-    {
-        string jiamibiao = build(key[count]);
-        out << transfer(ch,jiami,jiamibiao);
-        if(isalpha(ch))
-        count++;
-        if(count >= length)
-        count = 0;
+        cout << ntw2(line2,duizhao) << endl;
     }
     return 0;
 }
