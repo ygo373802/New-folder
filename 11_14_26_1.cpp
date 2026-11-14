@@ -1,34 +1,27 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <algorithm>
+#include <vector>
 using namespace std;
-void process_name(ifstream& in_file, double& total)
-{
-   string name,count;
-   double percent;
-   in_file >> name >> count >> percent;
-   if (in_file.fail()) { return; } 
-   if (total > 0) { cout << name << " "; }
-   total = total - percent;
-}
 int main()
-{  
-   ifstream in_file;
-   string name;
-   cin >> name;
-   in_file.open(name);
-   if (in_file.fail()) { return 0; } 
-   double boy_total = 50;
-   double girl_total = 50;
-   while (boy_total > 0 || girl_total > 0)
-   {
-      int rank;
-      in_file >> rank;
-      if (in_file.fail()) { return 0; } 
-      cout << rank << " ";
-      process_name(in_file, boy_total);
-      process_name(in_file, girl_total);
-      cout << endl;
-   }
-   return 0;
+{
+    ifstream input("input.txt");
+    if(!input)
+    return 1;
+    vector<string> boy,girl;
+    string boyn,girln,boynumber,girlnumber,boyc,girlc,line;
+    while(input >> boyn >> boynumber >> boyc)
+    {
+        boy.push_back(boyn);
+        if(input >> girln >> girlnumber >> girlc)
+        girl.push_back(girln);
+    }
+    sort(boy.begin(),boy.end());
+    for(string name : girl)
+    {
+        if(binary_search(boy.begin(),boy.end(),name))
+        cout << name << " ";
+    }
+    return 0;
 }
