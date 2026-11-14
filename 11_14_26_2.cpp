@@ -4,68 +4,44 @@
 #include <cctype>
 #include <fstream>
 #include <sstream>
+#include <iomanip>
 using namespace std;
-string build(const string& str)
+int main()
 {
-    string result = "";
-    for(int n = 0;n < str.length();++n)
+    string name;
+    cin >> name;
+    ifstream in(name);
+    vector<double> count(26,0);
+    double counts = 0;
+    char ch;
+    while(in.get(ch))
     {
-        char l = tolower(str[n]);
-        if(isalpha(l) && result.find(l) == string::npos)
-        result += l;
-    }
-    for(char c = 'z';c > 'a';c--)
-    {
-        if(result.find(c) == string::npos)
-        result += c;
-    }
-    return result;
-}
-char tranform(char ch,const string& zimubiao,const string& jiami,const bool& jm)
-{
-    if(!isalpha(ch))
-    return ch;
-    char l = tolower(ch);
-    if(jm)
-    {
-        int pos = zimubiao.find(l);
-        return jiami[pos];
-    }
-    else
-    {
-        int pos = jiami.find(l);
-        return zimubiao[pos];
-    }
-}
-int main(int argc,char* argv[])
-{
-    bool jm = false;
-    string key = "",in = "",out = "";
-    for(int i = 1;i < argc;++i)
-    {
-        string arg = argv[i];
-        if(arg == "-d")
-        jm = true;
-        else if(arg.substr(0,2) == "-k")
-        key = arg.substr(2);
-        else if(in.empty())
-        in = arg;
-        else
-        out = arg;
-    }
-    if(key.empty())
-    return 1;
-    string zimubiao = "abcdefghijklmnopqrstuvwxyz";
-    string jiami = build(key);
-    ifstream infile(in);
-    ofstream outfile(out);
-    if(!infile || !outfile)
-    return 1;
-        char letter;
-        while(infile.get(letter))
+        if(isalpha(ch))
         {
-            letter = tranform(letter,zimubiao,jiami,jm);
-            outfile << letter;
+            double pos = ch - 'a';
+            count[pos]++;
+            counts++;
         }
+    }
+    int m = 0;
+    for(int n = 0;n < 26;n++)
+    {
+        char ch = 'a' + n;
+        cout << ch << " ";
+        if(count[n] >= 1)
+        {
+            cout << right << setw(3) << count[n] << "% ";
+        }
+        else
+        cout << setw(3) << "< 1%";
+        m++;
+        if(m == 3)
+        {
+            m = 0;
+            cout << endl;
+        }
+    }
     return 0;
+    
+
 }
