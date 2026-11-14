@@ -6,42 +6,67 @@
 #include <sstream>
 #include <iomanip>
 using namespace std;
-int main()
+string build(const char& ch)
 {
-    string name;
-    cin >> name;
-    ifstream in(name);
-    vector<double> count(26,0);
-    double counts = 0;
+    char l = tolower(ch);
+    string zimubiao = "abcdefghijklmnopqrstuvwxyz";
+    int pos = l - 'a';
+    string result = zimubiao.substr(pos) + zimubiao.substr(0,pos);
+    return result;
+}
+char transfer(const char& ch,const bool& jiami,const string& build)
+{
+    if(!isalpha(ch))
+    {
+        return ch;
+    }
+    string zimubiao = "abcdefghijklmnopqrstuvwxyz";
+     if(jiami)
+     {
+        char l = tolower(ch);
+        int p = l - 'a';
+        return build[p];
+     }
+     else
+     {
+        char l = tolower(ch);
+        int p = (l - build[0] + 26) % 26;
+        return zimubiao[p];
+     }
+}
+int main(int argc,char* argv[])
+{
+    string key = "",input = "",output = "";
+    bool jiami = true;
+    for(int i = 1;i < argc;i++)
+    {
+        string arg = argv[i];
+        if(arg == "-d")
+            jiami = false;
+        else if(arg.substr(0,2) == "-k")
+        key = arg.substr(2);
+        else if(input.empty())
+        input = arg;
+        else
+        output = arg;
+    }
+    ifstream in(input);
+    ofstream out(output);
+    if(key.empty() || !in || !out)
+    {
+        cerr << "wrong information";
+        return 1;
+    }
     char ch;
+    int count = 0,length = key.length();
     while(in.get(ch))
     {
+        string jiamibiao = build(key[count]);
+        out << transfer(ch,jiami,jiamibiao);
         if(isalpha(ch))
-        {
-            double pos = ch - 'a';
-            count[pos]++;
-            counts++;
-        }
-    }
-    int m = 0;
-    for(int n = 0;n < 26;n++)
-    {
-        char ch = 'a' + n;
-        cout << ch << " ";
-        if(count[n] >= 1)
-        {
-            cout << right << setw(3) << count[n] << "% ";
-        }
-        else
-        cout << setw(3) << "< 1%";
-        m++;
-        if(m == 3)
-        {
-            m = 0;
-            cout << endl;
-        }
+        count++;
+        if(count >= length)
+        count = 0;
     }
     return 0;
-    
-
 }
