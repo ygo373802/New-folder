@@ -1,40 +1,50 @@
 #include <iostream>
 using namespace std;
-class Menu
+class account
 {
     public:
-    Menu();
-    void dis()const;
-    void again()const;
+    account();
+    account(double m);
+    void withdraw(double m);
+    void deposit(double m);
+    void penalty();
+    void interest(double rate);
+    double get()const;
     private:
-    int num;
+    double money;
 };
-Menu::Menu()
+account::account()
 {
-    num = 0;
+money = 0;
 }
-void Menu::again()const
+account::account(double m)
 {
-    double n;
-    cin >> n;
-    if(n != 1 && n != 2 && n!= 3 && n != 4)
-    {
-        cout << "invalid number,please try again" << endl;
-        dis();
-    }
+    money = m;
 }
-void Menu::dis()const
+void account::withdraw(double m)
 {
-    cout << "1) Open new account" << endl;
-    cout << "2) Log into existing account" << endl;
-    cout << "3) Help" << endl;
-    cout << "4) Quit" << endl;
-    cout << "please enter a number" << endl;
-    again();
+    if(money >= m)
+money -= m;
+else
+penalty();
+}
+void account::deposit(double m)
+{
+    money += m;
+}
+void account::penalty()
+{
+    money -= 10;
+}
+void account::interest(double rate)
+{
+    money *= (1 + rate / 100);
+}
+double account::get()const
+{
+    return money;
 }
 int main()
 {
-    Menu a;
-    a.dis();
-    return 0;
+    account n(9000);
 }
