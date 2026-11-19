@@ -1,47 +1,44 @@
 #include <iostream>
 #include <string>
 using namespace std;
-class StreetAddress
+class Bug
 {
     public:
-    StreetAddress(string a,string b,string c,string d,string e);
-    StreetAddress(string a,string b,string c,string d,string e,string number);
-    void print()const;
-    bool comes_before(StreetAddress a1,StreetAddress a2);
-    string get_code()const;
+    Bug(int position);
+    void turn();
+    void move();
+    int get_position()const;
     private:
-    string house_number,street,apartment_number,city,state,postal_code;
+    int pos,d = 1;
 };
-string StreetAddress::get_code()const
+Bug::Bug(int position)
 {
-    return postal_code;
+    pos = position;
 }
-StreetAddress::StreetAddress(string a,string b,string c,string d,string e)
+void Bug::turn()
 {
-    house_number = a;
-    street = b;
-    city = c;
-    state = d;
-    postal_code = e;
+    d *= -1;
 }
-StreetAddress::StreetAddress(string a,string b,string c,string d,string e,string number)
+void Bug::move()
 {
-    house_number = a;
-    street = b;
-    city = c;
-    state = d;
-    postal_code = e;
-    apartment_number = number;
+    pos += d;
 }
-void StreetAddress::print()const
+int Bug::get_position()const
 {
-    cout << street;
-    if(!apartment_number.empty())
-    cout << " " << apartment_number;
-    cout << endl;
-    cout << city << " " << state << " " << postal_code << endl;
+    return pos;
 }
-bool StreetAddress::comes_before(StreetAddress a1,StreetAddress a2)
+int main()
 {
-    return a1.get_code() <= a2.get_code();
+    Bug bug(0);
+    for(int a = 0;a < 10;a++)
+    {
+        bug.move();
+    }
+    cout << bug.get_position() << endl;
+    for(int a = 0;a < 10;a++)
+    {
+        bug.turn();
+        bug.move();
+    }
+    cout << bug.get_position() << endl;
 }
