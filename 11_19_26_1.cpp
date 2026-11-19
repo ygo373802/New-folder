@@ -1,31 +1,47 @@
 #include <iostream>
-#include <vector>
+#include <string>
 using namespace std;
-class Rectangle
+class StreetAddress
 {
     public:
-    Rectangle(double length,double wideth);
-    double get_perimeter()const;
-    double get_area()const;
-    void resize(double factor);
+    StreetAddress(string a,string b,string c,string d,string e);
+    StreetAddress(string a,string b,string c,string d,string e,string number);
+    void print()const;
+    bool comes_before(StreetAddress a1,StreetAddress a2);
+    string get_code()const;
     private:
-    double l,w;
+    string house_number,street,apartment_number,city,state,postal_code;
 };
-Rectangle::Rectangle(double length,double wideth)
+string StreetAddress::get_code()const
 {
-    l = length;
-    w = wideth;
+    return postal_code;
 }
-double Rectangle::get_perimeter()const
+StreetAddress::StreetAddress(string a,string b,string c,string d,string e)
 {
-    return 2 * (l + w);
+    house_number = a;
+    street = b;
+    city = c;
+    state = d;
+    postal_code = e;
 }
-double Rectangle::get_area()const
+StreetAddress::StreetAddress(string a,string b,string c,string d,string e,string number)
 {
-    return l * w;
+    house_number = a;
+    street = b;
+    city = c;
+    state = d;
+    postal_code = e;
+    apartment_number = number;
 }
-void Rectangle::resize(double factor)
+void StreetAddress::print()const
 {
-    l *= factor;
-    w *= factor;
+    cout << street;
+    if(!apartment_number.empty())
+    cout << " " << apartment_number;
+    cout << endl;
+    cout << city << " " << state << " " << postal_code << endl;
+}
+bool StreetAddress::comes_before(StreetAddress a1,StreetAddress a2)
+{
+    return a1.get_code() <= a2.get_code();
 }
