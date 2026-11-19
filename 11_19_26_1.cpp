@@ -1,35 +1,28 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 class light
 {
     public:
-    int get_first_switch_state()const;
-    int get_second_switch_state()const;
-    int get_lamp_state()const; 
-    void toggle_first_switch();
-    void toggle_second_switch();
+    
+    int get_lamp_state()const;
+    int get_switch_state(int switch_num)const;
+    void toggle_switch(int switch_num);
     private:
-    int first = 0,second = 0;
+    vector<int> l = {0,0};
 };
-int light::get_first_switch_state()const
+void light::toggle_switch(int switch_num)
 {
-return first;
+    if(switch_num != 0 && switch_num != 1)
+    return;
+    l[switch_num - 1] = (l[switch_num - 1] + 1) % 2;
 }
-int light::get_second_switch_state()const
+int light::get_switch_state(int switch_num)const
 {
-    return second;
+    return l[switch_num - 1];
 }
 int light::get_lamp_state()const
 {
-    if(first == 0 && second == 0)
-    return 0;
-    return 1;
+    return l[0] == l[1];
 }
-void light::toggle_first_switch()
-{
-    first = (first + 1) % 2;
-}
-void light::toggle_second_switch()
-{
-    second = (second + 1) % 2;
-}
+
