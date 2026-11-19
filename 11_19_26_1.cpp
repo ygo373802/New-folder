@@ -1,44 +1,24 @@
 #include <iostream>
 #include <string>
 using namespace std;
-class Bug
+class Moth
 {
     public:
-    Bug(int position);
-    void turn();
-    void move();
+    Moth(int position);
+    void move(int light_postion);
     int get_position()const;
     private:
-    int pos,d = 1;
+    int pos;
 };
-Bug::Bug(int position)
+Moth::Moth(int position)
 {
     pos = position;
 }
-void Bug::turn()
+void Moth::move(int light_position)
 {
-    d *= -1;
+    pos = pos + (light_position - pos) / 2;
 }
-void Bug::move()
-{
-    pos += d;
-}
-int Bug::get_position()const
+int Moth::get_position()const
 {
     return pos;
-}
-int main()
-{
-    Bug bug(0);
-    for(int a = 0;a < 10;a++)
-    {
-        bug.move();
-    }
-    cout << bug.get_position() << endl;
-    for(int a = 0;a < 10;a++)
-    {
-        bug.turn();
-        bug.move();
-    }
-    cout << bug.get_position() << endl;
 }
