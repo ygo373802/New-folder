@@ -1,28 +1,31 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-class light
+class Rectangle
 {
     public:
-    
-    int get_lamp_state()const;
-    int get_switch_state(int switch_num)const;
-    void toggle_switch(int switch_num);
+    Rectangle(double length,double wideth);
+    double get_perimeter()const;
+    double get_area()const;
+    void resize(double factor);
     private:
-    vector<int> l = {0,0};
+    double l,w;
 };
-void light::toggle_switch(int switch_num)
+Rectangle::Rectangle(double length,double wideth)
 {
-    if(switch_num != 0 && switch_num != 1)
-    return;
-    l[switch_num - 1] = (l[switch_num - 1] + 1) % 2;
+    l = length;
+    w = wideth;
 }
-int light::get_switch_state(int switch_num)const
+double Rectangle::get_perimeter()const
 {
-    return l[switch_num - 1];
+    return 2 * (l + w);
 }
-int light::get_lamp_state()const
+double Rectangle::get_area()const
 {
-    return l[0] == l[1];
+    return l * w;
 }
-
+void Rectangle::resize(double factor)
+{
+    l *= factor;
+    w *= factor;
+}
