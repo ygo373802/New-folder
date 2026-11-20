@@ -1,48 +1,87 @@
 #include <iostream>
+#include <string>
+#include <fstream>
+#include <vector>
 using namespace std;
-class CashRegister
+
+class country
 {
     public:
-    CashRegister(double rate);
-    void buy(double p);
-    void pay(double money);
-    double get_sales_total()const;
-    int get_sales_count()const;
-    void reset_sales();
+    country(double p,double a,string n)
+    {
+        population = p;
+        area = a;
+        name = n;
+    }
+    double get_population()const
+    {
+        return population;
+    }
+    double get_area()const
+    {
+        return area;
+    }
+    string get_name()const
+    {
+        return name;
+    }
     private:
-    double sales_total,price,tax;
-    int sales_count,count;
+    double population,area;
+    string name;
 };
-CashRegister::CashRegister(double rate)
+string l_area(const vector<country>& C)
 {
-    price = 0;
-    tax = rate;
-    count = 0;
-    sales_count = 0;
-    sales_total = 0;
+    int slow = 0,fast = 0;
+    while(fast < C.size())
+    {
+        if(C[fast].get_area() > C[slow].get_area())
+        {
+            slow = fast;
+        }
+        fast++;
+    }
+    return C[slow].get_name();
 }
-void CashRegister::buy(double p)
+string l_population(const vector<country>& C)
 {
-    price += p;
-    sales_total += p;
-    sales_count++;
+    int slow = 0,fast = 0;
+    while(fast < C.size())
+    {
+        if(C[fast].get_population() > C[slow].get_population())
+        {
+            slow = fast;
+        }
+        fast++;
+    }
+    return C[slow].get_name();
 }
-void CashRegister::pay(double money)
+string l_density(const vector<country>& C)
 {
-    double t = price * tax;
-    double change = money - t - price;
-    cout << "original price is " << price << " tax is " << tax << " the change is: " << change;
+    int slow = 0,fast = 0;
+    while(fast < C.size())
+    {
+        if((C[fast].get_population() / C[fast].get_area()) > (C[slow].get_population() / C[slow].get_area()))
+        {
+            slow = fast;
+        }
+        fast++;
+    }
+    return C[slow].get_name();
 }
-double CashRegister::get_sales_total()const
+int main()
 {
-    return sales_total;
-}
-int CashRegister::get_sales_count()const
-{
-    return sales_count;
-}
-void CashRegister::reset_sales()
-{
-    sales_count = 0;
-    sales_total = 0;
+    ifstream in("input.txt");
+    double p,a;
+    string n;
+    vector<country> C;
+    while(in >> n >> p >> a)
+    {
+        country c(p,a,n);
+        C.push_back(c);
+    }
+    string largest_area = l_area(C),largest_population = l_population(C),largest_density = l_density(C);
+    cout << largest_area << endl;
+    cout << largest_density << endl;
+    cout << largest_population << endl;
+
 }
