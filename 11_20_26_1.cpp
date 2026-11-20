@@ -1,29 +1,48 @@
 #include <iostream>
 using namespace std;
-class microwave
+class CashRegister
 {
     public:
-    void increasing();
-    void switching();
-    void reset();
-    void start();
+    CashRegister(double rate);
+    void buy(double p);
+    void pay(double money);
+    double get_sales_total()const;
+    int get_sales_count()const;
+    void reset_sales();
     private:
-    int time,level;
+    double sales_total,price,tax;
+    int sales_count,count;
 };
-void microwave::increasing()
+CashRegister::CashRegister(double rate)
 {
-    time += 30;
+    price = 0;
+    tax = rate;
+    count = 0;
+    sales_count = 0;
+    sales_total = 0;
 }
-void microwave::switching()
+void CashRegister::buy(double p)
 {
-    level = level % 2 + 1;
+    price += p;
+    sales_total += p;
+    sales_count++;
 }
-void microwave::reset()
+void CashRegister::pay(double money)
 {
-    time = 0;
-    level = 1;
+    double t = price * tax;
+    double change = money - t - price;
+    cout << "original price is " << price << " tax is " << tax << " the change is: " << change;
 }
-void microwave::start()
+double CashRegister::get_sales_total()const
 {
-    cout << "Cooking for " << time << "seconds at level " << level;
-} 
+    return sales_total;
+}
+int CashRegister::get_sales_count()const
+{
+    return sales_count;
+}
+void CashRegister::reset_sales()
+{
+    sales_count = 0;
+    sales_total = 0;
+}
