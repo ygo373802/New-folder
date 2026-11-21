@@ -1,28 +1,28 @@
 #include <iostream>
+#include <string>
 using namespace std;
-class vote
+class message
 {
     public:
-    vote();
-    void v();
-    void v(int a);
-    int get_number()const;
+    message(const string& from,const string& to);
+    void add_line(const string& line);
+    string get_text()const;
     private:
-    int number;
+    string s,r,body;
 };
-vote::vote()
+message::message(const string& from,const string& to):s(from),r(to),body("\n"){}
+void message::add_line(const string& line)
 {
-    number = 0;
+    body += line + "\n";
 }
-void vote::v()
+string message::get_text()const
 {
-    number++;
+    return "Dear " + r + ":\n" + body + "\nSincerely\n\n" + s;
 }
-void vote::v(int a)
+int main()
 {
-    number += a;
-}
-int vote::get_number()const
-{
-    return number;
+    message letter("Marry","John");
+    letter.add_line("I am sorry we must part.");
+    letter.add_line("I wish you all the best.");
+    cout << letter.get_text();
 }
