@@ -1,28 +1,60 @@
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
-class message
+class menu;
+class item
 {
     public:
-    message(const string& from,const string& to);
-    void add_line(const string& line);
-    string get_text()const;
+    item(const string& n);
+    item(const string& na,const menu& s);
+    string get_name()const;
+    menu get_sub();
     private:
-    string s,r,body;
+    menu sub;
+    string name;
 };
-message::message(const string& from,const string& to):s(from),r(to),body("\n"){}
-void message::add_line(const string& line)
+item::item(const string& n) : name(n){}
+item::item(const string& na,const menu& s) : name(na),sub(s){}
+menu item::get_sub()
 {
-    body += line + "\n";
+    return sub;
 }
-string message::get_text()const
+string item::get_name()const
 {
-    return "Dear " + r + ":\n" + body + "\nSincerely\n\n" + s;
+    return name;
 }
-int main()
+class menu
 {
-    message letter("Marry","John");
-    letter.add_line("I am sorry we must part.");
-    letter.add_line("I wish you all the best.");
-    cout << letter.get_text();
+    public:
+    void list();
+    void select();
+    vector<item> get_item();
+    private:
+    vector<item> items;
+    int row;
+};
+vector<item> menu::get_item()
+{
+    return items;
+}
+void menu::list()
+{
+    for(item str : items)
+    {
+        cout << str.get_name() << endl;
+    }
+    cout << "which one do you want to select: ";
+    cin >> row;
+}
+void menu::select()
+{
+    if(items[row - 1].get_sub().get_item().empty())
+    {
+        cout << items[row - 1].get_name() << endl;
+    }
+    else
+    {
+        items[row - 1].get_sub().list();
+    }
 }
