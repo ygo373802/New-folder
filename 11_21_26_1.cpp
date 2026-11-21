@@ -5,34 +5,43 @@ using namespace std;
 class ComboLock
 {
 public:
-   ComboLock(const int& secret1, const int& secret2,const int& secret3);
+   ComboLock(int secret1, int secret2, int secret3);
    void reset();
-   void turn_left(const int& ticks);
-   void turn_right(const int& ticks);
+   void turn_left(int ticks);
+   void turn_right(int ticks);
    bool open() const;
 private:
-   vector<int> t;
-   vector<int> right;
+   int s1,s2,s3,state,d;
 };
-ComboLock::ComboLock(const int& secret1,const int& secret2,const int& secret3)
-{
-    right.push_back(secret1);
-    right.push_back(secret2);
-    right.push_back(secret3);
-}
+ComboLock::ComboLock(int secret1,int secret2,int secret3):s1(secret1),s2(secret2),s3(secret3),state(0),d(0){}
 void ComboLock::reset()
 {
-    t = {};
+    state = 0;
+    d = 0;
 }
-void ComboLock::turn_left(const int& ticks)
+void ComboLock::turn_left(int ticks)
 {
-    t.push_back(ticks);
+    d = (ticks + d) % 40;
+    if(state == 1 && d == s2)
+    state = 2;
+    else
+    state = -1;
 }
-void ComboLock::turn_right(const int& ticks)
+void ComboLock::turn_right(int ticks)
 {
-    t.push_back((40 - ticks) % 40);
+    d = (40 + d - ticks % 40) % 40;
+    if(state == 0 && d == s1)
+    {
+        state = 1;
+    }
+    else if(state == 2 && d == s3)
+    {
+        state = 3;
+    }
+    else
+    state = -1;
 }
 bool ComboLock::open()const
 {
-    return right == t;
+    return state == 3;
 }
