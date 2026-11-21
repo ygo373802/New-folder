@@ -1,47 +1,27 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cmath>
 using namespace std;
-class ComboLock
+class two
 {
-public:
-   ComboLock(int secret1, int secret2, int secret3);
-   void reset();
-   void turn_left(int ticks);
-   void turn_right(int ticks);
-   bool open() const;
-private:
-   int s1,s2,s3,state,d;
+    public:
+    two(int a,int b,int c);
+    bool have();
+    void real_solutions();
+    private:
+    int A,B,C;
 };
-ComboLock::ComboLock(int secret1,int secret2,int secret3):s1(secret1),s2(secret2),s3(secret3),state(0),d(0){}
-void ComboLock::reset()
+two::two(int a,int b,int c):A(a),B(b),C(c){}
+bool two::have()
 {
-    state = 0;
-    d = 0;
+    return pow(B,2) >= 4 * A * C;
 }
-void ComboLock::turn_left(int ticks)
+void two::real_solutions()
 {
-    d = (ticks + d) % 40;
-    if(state == 1 && d == s2)
-    state = 2;
-    else
-    state = -1;
-}
-void ComboLock::turn_right(int ticks)
-{
-    d = (40 + d - ticks % 40) % 40;
-    if(state == 0 && d == s1)
+    if(have())
     {
-        state = 1;
+        cout << (-B + sqrt(B * B - 4 * A * C)) / 2 / A << endl;
+        cout << (-B - sqrt(B * B - 4 * A * C)) / 2 / A << endl;
     }
-    else if(state == 2 && d == s3)
-    {
-        state = 3;
-    }
-    else
-    state = -1;
-}
-bool ComboLock::open()const
-{
-    return state == 3;
 }
