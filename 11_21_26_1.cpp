@@ -32,11 +32,28 @@ double resistor::get_t()
 {
     return to;
 }
+class vd
+{
+    public:
+    vd(resistor R1,resistor R2);
+    double get_nv();
+    double get_av();
+    private:
+    resistor r1,r2;
+};
+vd::vd(resistor R1,resistor R2) : r1(R1),r2(R2){}
+double vd::get_nv()
+{
+    return r1.get_nr() / (r1.get_nr() + r2.get_nr());
+}
+double vd::get_av()
+{
+    return r1.get_ar() / (r1.get_ar() + r2.get_ar());
+}
 int main()
 {
-    for(int a = 0;a < 10;a++)
-    {
-        resistor r(330,0.1);
-        cout << r.get_ar() << endl;
-    }
+    resistor r1(250,0.05),r2(750,0.05);
+    vd v(r1,r2);
+    cout << v.get_av() << endl;
+    cout << v.get_nv() << endl;
 }
