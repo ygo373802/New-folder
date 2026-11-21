@@ -3,25 +3,39 @@
 #include <vector>
 #include <cmath>
 using namespace std;
-class two
+class ball
 {
     public:
-    two(int a,int b,int c);
-    bool have();
-    void real_solutions();
+    ball(double p);
+    void move(double sec);
+    void shoot(double v,double angle);
     private:
-    int A,B,C;
+    double px,py,vx,vy;
 };
-two::two(int a,int b,int c):A(a),B(b),C(c){}
-bool two::have()
+ball::ball(double p):px(p),py(0){}
+void ball::move(double sec)
 {
-    return pow(B,2) >= 4 * A * C;
+    px += vx * sec;
+    py += vy * sec - 0.5 * 9.81 * sec * sec;
+    vy -= 9.81 * sec;
 }
-void two::real_solutions()
+void ball::shoot(double v,double angle)
 {
-    if(have())
+    double PI = 3.14159265358979323846;
+    double a = angle / 180 * PI;
+    vx = cos(a) * v;
+    vy = sin(a) * v;
+    do
     {
-        cout << (-B + sqrt(B * B - 4 * A * C)) / 2 / A << endl;
-        cout << (-B - sqrt(B * B - 4 * A * C)) / 2 / A << endl;
+        move(0.1);
+        cout << px << " " << py << endl;
     }
+    while(py > 0);
+}
+int main()
+{
+    int pos;
+    cin >> pos;
+    ball b(pos);
+    b.shoot(30,30);
 }
