@@ -2,59 +2,37 @@
 #include <string>
 #include <vector>
 using namespace std;
-class menu;
-class item
+class ComboLock
 {
-    public:
-    item(const string& n);
-    item(const string& na,const menu& s);
-    string get_name()const;
-    menu get_sub();
-    private:
-    menu sub;
-    string name;
+public:
+   ComboLock(const int& secret1, const int& secret2,const int& secret3);
+   void reset();
+   void turn_left(const int& ticks);
+   void turn_right(const int& ticks);
+   bool open() const;
+private:
+   vector<int> t;
+   vector<int> right;
 };
-item::item(const string& n) : name(n){}
-item::item(const string& na,const menu& s) : name(na),sub(s){}
-menu item::get_sub()
+ComboLock::ComboLock(const int& secret1,const int& secret2,const int& secret3)
 {
-    return sub;
+    right.push_back(secret1);
+    right.push_back(secret2);
+    right.push_back(secret3);
 }
-string item::get_name()const
+void ComboLock::reset()
 {
-    return name;
+    t = {};
 }
-class menu
+void ComboLock::turn_left(const int& ticks)
 {
-    public:
-    void list();
-    void select();
-    vector<item> get_item();
-    private:
-    vector<item> items;
-    int row;
-};
-vector<item> menu::get_item()
-{
-    return items;
+    t.push_back(ticks);
 }
-void menu::list()
+void ComboLock::turn_right(const int& ticks)
 {
-    for(item str : items)
-    {
-        cout << str.get_name() << endl;
-    }
-    cout << "which one do you want to select: ";
-    cin >> row;
+    t.push_back((40 - ticks) % 40);
 }
-void menu::select()
+bool ComboLock::open()const
 {
-    if(items[row - 1].get_sub().get_item().empty())
-    {
-        cout << items[row - 1].get_name() << endl;
-    }
-    else
-    {
-        items[row - 1].get_sub().list();
-    }
+    return right == t;
 }
