@@ -1,41 +1,42 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cstdlib>
+#include <ctime>
 #include <cmath>
 using namespace std;
-class ball
+class resistor
 {
     public:
-    ball(double p);
-    void move(double sec);
-    void shoot(double v,double angle);
+    resistor(double r,double t);
+    double get_ar();
+    double get_t();
+    double get_nr();
     private:
-    double px,py,vx,vy;
+    double re,to,actual;
 };
-ball::ball(double p):px(p),py(0){}
-void ball::move(double sec)
+resistor::resistor(double r,double t) : re(r),to(t)
 {
-    px += vx * sec;
-    py += vy * sec - 0.5 * 9.81 * sec * sec;
-    vy -= 9.81 * sec;
+    double low = r * (1 - t),high = r * (1 + t);
+    actual = (static_cast<double>(rand()) / RAND_MAX) * (high - low) + low;
 }
-void ball::shoot(double v,double angle)
+double resistor::get_ar()
 {
-    double PI = 3.14159265358979323846;
-    double a = angle / 180 * PI;
-    vx = cos(a) * v;
-    vy = sin(a) * v;
-    do
-    {
-        move(0.1);
-        cout << px << " " << py << endl;
-    }
-    while(py > 0);
+    return actual;
+}
+double resistor::get_nr()
+{
+    return re;
+}
+double resistor::get_t()
+{
+    return to;
 }
 int main()
 {
-    int pos;
-    cin >> pos;
-    ball b(pos);
-    b.shoot(30,30);
+    for(int a = 0;a < 10;a++)
+    {
+        resistor r(330,0.1);
+        cout << r.get_ar() << endl;
+    }
 }
