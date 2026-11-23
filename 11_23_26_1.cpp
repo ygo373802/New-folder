@@ -1,55 +1,46 @@
-#include <iostream>
-#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
-int findm(const int& left,const string& str)
+void fast()
 {
-  int a = str.find('A'),b = str.find('B'),c = str.find('C');
-  int p = max({a,b,c});
-  return p + 1;
-}
-int findr(const int& left,const string& str)
-{
-  int a = str.length() - 1,b = str.length() - 1,c = str.length() - 1;
-  while(str[a] != 'A')
-  {
-    a--;
-  }
-  while(str[b] != 'B')
-  {
-    b--;
-  }
-  while(str[c] != 'C')
-  {
-    c--;
-  }
-  int p = min({a,b,c});
-  return p;
+  ios::sync_with_stdio(false);
+  std::cin.tie(nullptr);
 }
 int main()
 {
-  int length;
-  double count = 0;
-  cin >> length;
-  string str;
-  cin >> str;
-  int left = findm(0,str);
-  int right = findr(0,str);
-  int pa = str.find('A',left),pb = str.find('B',left),pc = str.find('C',left);
-  for(int a = left;a <= right;a++)
+  long long ans = 0;
+  fast();
+  int n;
+  string s;
+  cin >> n >> s;
+  bool left[3],right[3];
+  int L = 0,R = n - 1;
+  while(L < R)
   {
-    if(pa < a)
-    pa = str.find('A',a);
-    if(pb < a)
-    pb = str.find('B',a);
-    if(pc < a)
-    pc = str.find('C',a);
-    if(pa == string::npos || pb == string::npos || pc == string::npos)
+    left[s[L] - 'A'] = true;
+    if(left[0] && left[1] && left[2])
     break;
-  
-  int m = max({pa,pb,pc}) + 1;
-  if(m <= right)
-  count += (right - m + 1);
+    L++;
   }
-  cout << count;
+  L++;
+  while(L < R)
+  {
+    right[s[R] - 'A'] = true;
+    if(right[0] && right[1] && right[2])
+    break;
+    R--;
+  }
+  int l = L,r = L;
+  int zt[3];
+  for(;l <= R;l++)
+  {
+    while(zt[0] == 0 || zt[1] == 0 || zt[2] == 0)
+    {
+      zt[s[r] - 'A']++;
+      r++;
+    }
+    ans += R - r + 1;
+    zt[s[l] - 'A']--;
+  }
+  cout << ans;
   return 0;
 }
